@@ -5,7 +5,7 @@ app.secret_key = "sss"
 
 @app.route("/", methods=['GET', 'POST'])
 def test():
-    return render_template('clickdraw.html')
+    return render_template('testing.html')
 
 if __name__ == "__main__":
     app.debug = True
