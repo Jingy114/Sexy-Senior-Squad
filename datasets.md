@@ -5,3 +5,7 @@ https://www.kaggle.com/datasets/amanarora/obesity-among-adults-by-country-197520
 https://www.kaggle.com/datasets/frankmollard/income-by-country
 https://www.naturalearthdata.com/downloads/10m-physical-vectors/   ***
 + more to come!!!!!!!!!!!!!!!!
+
+
+Remember for globedy globe--
+https://github.com/d3/d3-geo/blob/main/README.md#projection_rotate
