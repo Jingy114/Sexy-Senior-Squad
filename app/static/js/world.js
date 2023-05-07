@@ -1,4 +1,9 @@
-let file_data = readFile("../countries/country_data.json")
+//let file_data = readFile("../countries/country_data.json")
+
+let file = open("../countries/country_data.json");
+
+let file_data = file.read();
+
 let world_data = file_data.json();
 console.log(world_data);
 
