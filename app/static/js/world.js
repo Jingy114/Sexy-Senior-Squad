@@ -1,10 +1,11 @@
 //let file_data = readFile("../countries/country_data.json")
 
-let file = open("../countries/country_data.json");
+// let file = open("../countries/country_data.json");
+//
+// let file_data = file.read();
 
-let file_data = file.read();
-
-let world_data = file_data.json();
+console.log(file_data);
+let world_data = JSON.parse(file_data);
 console.log(world_data);
 
 let projection = d3.geoOrthographic();
