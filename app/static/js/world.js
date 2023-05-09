@@ -1,5 +1,5 @@
 function getData(callback) {
-  fetch('../static/countries/country_data.json')
+  fetch('../static/data/country_data.json')
     .then(response => response.json())
     .then(data => {
       console.log(data);
