@@ -43,8 +43,9 @@ HenryB + FaiyazR 2023-5-8 09:21
 - We can read data now!!!! (but other problems :( )
 ==============================================================
 
-HenryB 2023-5-8 21:52
+HenryB 2023-5-8 21:59
 --------------------------------------------------------------
 - Changed how geojson data is read
 - There's a globe (though not exactly earth)
+- gitignore for ds_store (it rhymes!)
 ==============================================================
