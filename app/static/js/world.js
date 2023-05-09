@@ -10,7 +10,7 @@ function getData(callback) {
 function run(info) {
   let world_data = info;
 
-  let projection = d3.geoEqualEarth();
+  let projection = d3.geoOrthographic();
 
   let thingy =  d3.geoPath().projection(projection); //Have to look into exactly what this step creates
 
