@@ -42,3 +42,9 @@ HenryB + FaiyazR 2023-5-8 09:21
 - Tried to fix globe stuff
 - We can read data now!!!! (but other problems :( )
 ==============================================================
+
+HenryB 2023-5-8 21:52
+--------------------------------------------------------------
+- Changed how geojson data is read
+- There's a globe (though not exactly earth)
+==============================================================
