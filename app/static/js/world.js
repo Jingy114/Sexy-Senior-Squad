@@ -1,9 +1,3 @@
-//let file_data = readFile("../countries/country_data.json")
-
-// let file = open("../countries/country_data.json");
-//
-
-
 function getData(callback) {
   fetch('../static/countries/country_data.json')
     .then(response => response.json())
