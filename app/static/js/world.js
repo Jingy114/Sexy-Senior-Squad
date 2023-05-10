@@ -16,10 +16,14 @@ function run(info) {
 
   let world =  d3.select('#globe g.map')
     .selectAll('path')
-    .data(world_data.geometries)
+    .data(world_data.features)
     .enter()
     .append('path')
     .attr('d', thingy);
+}
+
+function color_country(country_name) {
+
 }
 
 getData(run);
