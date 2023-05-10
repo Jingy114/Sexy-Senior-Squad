@@ -20,10 +20,15 @@ function run(info) {
     .enter()
     .append('path')
     .attr('d', thingy);
+
+  let country = d3.select('#globe g.map')
+    .select('path')
+    .style("fill", country_color("a"));
 }
 
-function color_country(country_name) {
-
+function country_color(country_name) {
+  console.log(country_name);
+  return 'red';
 }
 
 getData(run);

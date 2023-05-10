@@ -50,7 +50,7 @@ HenryB 2023-5-8 21:59
 - gitignore for ds_store (it rhymes!)
 ==============================================================
 
-HenryB 2023-5-9-09:25
+HenryB 2023-5-9 09:25
 --------------------------------------------------------------
 - Globe actually renders fine!
 - Added some basic css files and organized country_data so
@@ -61,4 +61,10 @@ JingF 2023-5-9
 --------------------------------------------------------------
 - create login.html
 - Boostrap
+==============================================================
+
+HenryB 2023-5-10 09:22
+--------------------------------------------------------------
+- Switched to data including country names
+- Started functions to color each country
 ==============================================================
