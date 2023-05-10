@@ -1,4 +1,4 @@
-function getData(callback) {
+function get_data(callback) {
   fetch('../static/data/country_data.json')
     .then(response => response.json())
     .then(data => {
@@ -7,14 +7,14 @@ function getData(callback) {
     });
 }
 
+let country_list = [];
+
 function run(info) {
   let world_data = info;
 
   let projection = d3.geoOrthographic();
 
   let thingy =  d3.geoPath().projection(projection); //Have to look into exactly what this step creates
-
-  let country_list = [];
 
   let world =  d3.select('#globe g.map')
     .selectAll('path')
@@ -27,25 +27,22 @@ function run(info) {
       country_list.push(country);
       return country;
     });
-  }
+
+    update_colors();
 }
 
 function update_colors() {
-
-}
-
-
-    console.log(country_list);
   for (let i = 0; i<country_list.length; i++) {
+    let country_name = country_list[i];
     let country = d3.select('#globe g.map')
-      .selectAll('path').filter(d => d.properties.ADMIN == country?) //Less efficient way but will be used for now until I can set IDs to each country
-      .style("fill", country_color("a"));
+      .select('#'+country_name)
+      .style("fill", "red");
   }
 }
 
 function country_color(country_name) {
-  console.log(country_name);
   return 'red';
 }
 
-getData(run);
+get_data(run);
+//update_colors();
