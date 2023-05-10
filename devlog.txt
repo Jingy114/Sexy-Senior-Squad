@@ -71,7 +71,13 @@ HenryB 2023-5-10 09:22
 
 FaiyazR 2023-5-10 9:23
 --------------------------------------------------------------
-- added db functionality for creating/loggin in users
+- added db functionality for creating/login in users
 - added routes for basic redirection to html files for login
 gabagoo and home page redirection
+==============================================================
+
+HenryB 2023-5-10 13:18
+--------------------------------------------------------------
+- Each country now has a name id
+- Each country now can be individually colored
 ==============================================================
