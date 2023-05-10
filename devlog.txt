@@ -68,3 +68,10 @@ HenryB 2023-5-10 09:22
 - Switched to data including country names
 - Started functions to color each country
 ==============================================================
+
+FaiyazR 2023-5-10 9:23
+--------------------------------------------------------------
+- added db functionality for creating/loggin in users
+- added routes for basic redirection to html files for login
+gabagoo and home page redirection
+==============================================================
