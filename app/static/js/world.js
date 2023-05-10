@@ -20,10 +20,11 @@ function run(info) {
     .enter()
     .append('path')
     .attr('d', thingy);
-
-  let country = d3.select('#globe g.map')
-    .select('path')
-    .style("fill", country_color("a"));
+  for (let i = 0; i<world_data.features.length; i++) {
+    let country = d3.select('#globe g.map')
+      .selectAll('path').filter(d => d.properties.ADMIN == country?) //Less efficient way but will be used for now until I can set IDs to each country
+      .style("fill", country_color("a"));
+  }
 }
 
 function country_color(country_name) {
