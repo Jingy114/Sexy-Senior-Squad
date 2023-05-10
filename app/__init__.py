@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from db import * 
+from db import *
 
 app = Flask(__name__)
 app.secret_key = "sss"
@@ -8,9 +8,7 @@ app.secret_key = "sss"
 # def test():
 #    return render_template('testing.html')
 
-if __name__ == "__main__":
-    app.debug = True
-    app.run(port=1026)
+
 
 @app.route("/", methods=['GET', 'POST'])
 def login():
@@ -55,3 +53,11 @@ def home():
 def logout():
     session.pop('username', None)
     return redirect('/')
+
+@app.route("/testing")
+def testing():
+    return render_template('home.html')
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run(port=1026)
