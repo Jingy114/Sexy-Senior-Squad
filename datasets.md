@@ -9,3 +9,5 @@ https://www.naturalearthdata.com/downloads/10m-physical-vectors/   ***
 
 Remember for globedy globe--
 https://github.com/d3/d3-geo/blob/main/README.md#projection_rotate
+https://www.naturalearthdata.com/downloads/110m-cultural-vectors/110m-admin-0-countries/
+https://mapshaper.org/
