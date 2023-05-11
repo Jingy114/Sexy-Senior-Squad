@@ -36,6 +36,7 @@ function setup(info) {
     //console.log(country_list);
     update_colors();
 
+    //Button testing rotate stuff
     let button = document.getElementById('rotate');
     button.addEventListener("click", rotate_test);
 }

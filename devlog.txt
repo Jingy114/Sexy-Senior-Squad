@@ -81,3 +81,8 @@ HenryB 2023-5-10 13:18
 - Each country now has a name id
 - Each country now can be individually colored
 ==============================================================
+
+HenryB 2023-5-11 09:33
+--------------------------------------------------------------
+- Tried and failed to rotate the globe after generation
+==============================================================

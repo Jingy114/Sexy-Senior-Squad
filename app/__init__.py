@@ -54,6 +54,7 @@ def logout():
     session.pop('username', None)
     return redirect('/')
 
+# Testing route
 @app.route("/testing")
 def testing():
     return render_template('home.html')
