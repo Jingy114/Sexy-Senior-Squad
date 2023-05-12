@@ -10,6 +10,8 @@ function get_data(callback) {
 let country_list = [];
 let rotation_array = [90, -70, 0];
 let projection;
+let world;
+let map;
 
 function setup(info) {
   let world_data = info;
@@ -18,9 +20,9 @@ function setup(info) {
     .rotate(rotation_array);
     //.fitExtent([[0,0], [500,500]]);
 
-  let map = d3.geoPath().projection(projection);
+  map = d3.geoPath().projection(projection);
 
-  let world = d3.select('#globe g.map')
+  world = d3.select('#globe g.map')
     .selectAll('path')
     .data(world_data.features)
     .enter()
@@ -58,11 +60,13 @@ get_data(setup);
 //update_colors();
 
 var rotate_test = function(){
-  rotation_array[0] += 90;
-  projection.rotate(rotation_array);
-  let map = d3.geoPath().projection(projection);
-  let world = d3.select('#globe g.map')
-    .attr('d', map);
+  //rotation_array[0] += 90;
+  // projection.rotate(rotation_array);
+  // d3.select('svg')
+  //   .selectAll("path")
+  //   .attr('d', map);
+  g = document.getElementById('h');
+  g.style.rotate = '500deg';
   console.log(rotation_array)
-  get_data(setup);
+  //get_data(setup);
 }

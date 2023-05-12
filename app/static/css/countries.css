@@ -6,4 +6,5 @@ path {
 
 svg {
   background-color: grey;
+  transform: rotate(0deg); 
 }
