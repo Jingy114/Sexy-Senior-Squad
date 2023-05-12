@@ -60,13 +60,9 @@ get_data(setup);
 //update_colors();
 
 var rotate_test = function(){
-  //rotation_array[0] += 90;
-  // projection.rotate(rotation_array);
-  // d3.select('svg')
-  //   .selectAll("path")
-  //   .attr('d', map);
-  g = document.getElementById('h');
-  g.style.rotate = '500deg';
+  projection.rotate([90,0,0]);
+  d3.select('svg')
+    .selectAll("path")
+    .attr('d', map);
   console.log(rotation_array)
-  //get_data(setup);
 }
