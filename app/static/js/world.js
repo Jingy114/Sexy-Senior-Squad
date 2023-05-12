@@ -8,7 +8,7 @@ function get_data(callback) {
 }
 
 let country_list = [];
-let rotation_array = [0, 0, 0];
+let rotation_array = [90, -70, 0];
 let projection;
 
 function setup(info) {
