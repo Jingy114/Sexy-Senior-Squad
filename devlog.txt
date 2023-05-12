@@ -86,3 +86,11 @@ HenryB 2023-5-11 09:33
 --------------------------------------------------------------
 - Tried and failed to rotate the globe after generation
 ==============================================================
+
+HenryB 2023-5-12 12:16
+--------------------------------------------------------------
+- Rotating globe by mouse movement but
+  - Very laggy (possibly just my computer)
+  - Multiple bugs
+  - Based on initial location
+==============================================================

@@ -8,21 +8,19 @@ function get_data(callback) {
 }
 
 let country_list = [];
-let rotation_array = [90, -70, 0];
 let projection;
-let world;
 let map;
+let x,y,z=0;
 
 function setup(info) {
   let world_data = info;
 
-  projection = d3.geoOrthographic()
-    .rotate(rotation_array);
+  projection = d3.geoOrthographic();
     //.fitExtent([[0,0], [500,500]]);
 
   map = d3.geoPath().projection(projection);
 
-  world = d3.select('#globe g.map')
+  let world = d3.select('#globe g.map')
     .selectAll('path')
     .data(world_data.features)
     .enter()
@@ -38,9 +36,18 @@ function setup(info) {
     //console.log(country_list);
     update_colors();
 
+    x = -50;
+
+    //rotate_to(x,y,z);
+
     //Button testing rotate stuff
     let button = document.getElementById('rotate');
     button.addEventListener("click", rotate_test);
+
+    //Mouse rotate stuff
+    let moveable_globe = document.getElementById('map');
+    moveable_globe.addEventListener("mouseover", rotate_to);
+    //Currently only triggers on the borders themselves
 }
 
 function update_colors() {
@@ -56,13 +63,26 @@ function country_color(country_name) {
   return 'red';
 }
 
-get_data(setup);
-//update_colors();
-
 var rotate_test = function(){
   projection.rotate([90,0,0]);
   d3.select('svg')
     .selectAll("path")
     .attr('d', map);
-  console.log(rotation_array)
+  //console.log(rotation_array)
 }
+
+let sensitity = 1/10;
+
+var rotate_to = function(e){
+  let dx = event.offsetX*sensitity - x;
+  x = event.offsetX*sensitity;
+  let dy = event.offsetY*sensitity - y;
+  y = event.offsetY*sensitity;
+  console.log(x+" ,"+y);
+  projection.rotate([dx,dy,z]);
+  d3.select('svg')
+    .selectAll("path")
+    .attr('d', map);
+}
+
+get_data(setup);
