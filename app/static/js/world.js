@@ -46,16 +46,20 @@ function setup(info) {
 
     //Mouse rotate stuff
     let moveable_globe = document.getElementById('map');
-    moveable_globe.addEventListener("mouseover", rotate_to);
+    //moveable_globe.addEventListener("mousemove", rotate_to); //+mousedown + mousemove/mouseover?
     //Currently only triggers on the borders themselves
 }
 
 function update_colors() {
   for (let i = 0; i<country_list.length; i++) {
     let country_name = country_list[i];
-    let country = d3.select('#globe g.map')
+    let country_d3 = d3.select('#globe g.map')
       .select('#'+country_name)
       .style("fill", country_color(country_name));
+    let country_js = document.getElementById(country_name);
+    country_js.addEventListener("mouseover", function(){
+      console.log(country_name);
+    });
   }
 }
 
@@ -78,7 +82,7 @@ var rotate_to = function(e){
   x = event.offsetX*sensitity;
   let dy = event.offsetY*sensitity - y;
   y = event.offsetY*sensitity;
-  console.log(x+" ,"+y);
+  //console.log(x+" ,"+y);
   projection.rotate([dx,dy,z]);
   d3.select('svg')
     .selectAll("path")
