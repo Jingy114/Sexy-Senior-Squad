@@ -13,13 +13,12 @@ let map;
 let x,y,z=0;
 
 function setup(info) {
+  //Get data from callback 'get_data()'
   let world_data = info;
 
+  //Generate Countries
   projection = d3.geoOrthographic();
-    //.fitExtent([[0,0], [500,500]]);
-
   map = d3.geoPath().projection(projection);
-
   let world = d3.select('#globe g.map')
     .selectAll('path')
     .data(world_data.features)
@@ -33,7 +32,17 @@ function setup(info) {
       return country;
     });
 
-    //console.log(country_list);
+    //Setup Popover Labels for Countries
+    for (let i = 0; i<country_list.length; i++) {
+      let country_name = country_list[i];
+      let country_js = document.getElementById(country_name);
+      country_js.addEventListener("mouseover", function(){
+        let country_true_name = country_name.replaceAll("_", " ");
+        console.log(country_true_name); //Will be used for popover
+      });
+    }
+
+    //Initialize Colors
     update_colors();
 
     x = -50;
@@ -50,19 +59,16 @@ function setup(info) {
     //Currently only triggers on the borders themselves
 }
 
+//Colors each country according to 'country_color()'
 function update_colors() {
   for (let i = 0; i<country_list.length; i++) {
     let country_name = country_list[i];
     let country_d3 = d3.select('#globe g.map')
       .select('#'+country_name)
       .style("fill", country_color(country_name));
-    let country_js = document.getElementById(country_name);
-    country_js.addEventListener("mouseover", function(){
-      let country_true_name = country_name.replaceAll("_", " ");
-      console.log(country_true_name);
-    });
   }
 }
+
 
 function country_color(country_name) {
   return 'red';

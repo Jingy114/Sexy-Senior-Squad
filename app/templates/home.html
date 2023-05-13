@@ -1,9 +1,11 @@
 <html>
   <head>
-      <title> Globe? </title>
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-      <link rel="stylesheet" type = text/css href = "../static/css/countries.css">
+    <title> Globe? </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/countries.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.js"></script> -->
   </head>
 
   <body>
@@ -15,11 +17,10 @@
     </div>
 
     <button id="rotate"> Test Rotate </button>
-    <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top" data-content="Show up">
-      Popover on top
-    </button>
+    <button type="button" class="btn btn-secondary" data-toggle="popover" data-placement="right" title="Popover title" data-content="Popover content goes here.">Popover</button>
 
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="../static/js/world.js"></script>
+    <script src="../static/js/popover.js"></script>
   </body>
 </html>
