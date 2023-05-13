@@ -8,3 +8,7 @@ svg {
   background-color: grey;
   transform: rotate(0deg);
 }
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})

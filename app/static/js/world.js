@@ -28,7 +28,7 @@ function setup(info) {
     .attr('d', map)
     .attr("id", function(d) {
       country_with_spaces = d.properties.ADMIN;
-      country = country_with_spaces.replaceAll(" ", "");
+      country = country_with_spaces.replaceAll(" ", "_");
       country_list.push(country);
       return country;
     });
@@ -58,7 +58,8 @@ function update_colors() {
       .style("fill", country_color(country_name));
     let country_js = document.getElementById(country_name);
     country_js.addEventListener("mouseover", function(){
-      console.log(country_name);
+      let country_true_name = country_name.replaceAll("_", " ");
+      console.log(country_true_name);
     });
   }
 }
