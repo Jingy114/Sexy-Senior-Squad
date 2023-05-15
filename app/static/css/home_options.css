@@ -1,0 +1,16 @@
+.options_panel {
+  background-color: lavender;
+}
+
+a {
+  color: #565656;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  text-decoration-color: #565656;
+}

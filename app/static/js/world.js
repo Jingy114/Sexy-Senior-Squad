@@ -14,7 +14,7 @@ let x = 0;
 let y = 0;
 let z = 0;
 
-let datasets = ["a", "b"];
+let datasets = ["Data a", "Data b"];
 
 function setup(info) {
   //Initilaize Selction List
