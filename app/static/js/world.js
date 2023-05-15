@@ -10,7 +10,11 @@ function get_data(callback) {
 let country_list = [];
 let projection;
 let map;
-let x,y,z=0;
+let x=0;
+let y=0;
+let z=0;
+
+let datasets=["a", "b"];
 
 function setup(info) {
   //Get data from callback 'get_data()'
@@ -45,18 +49,26 @@ function setup(info) {
     //Initialize Colors
     update_colors();
 
-    x = -50;
-
     //rotate_to(x,y,z);
 
     //Button testing rotate stuff
     let button = document.getElementById('rotate');
-    button.addEventListener("click", rotate_test);
+    button.addEventListener("click", rotate_left);
 
     //Mouse rotate stuff
     let moveable_globe = document.getElementById('map');
     //moveable_globe.addEventListener("mousemove", rotate_to); //+mousedown + mousemove/mouseover?
     //Currently only triggers on the borders themselves
+
+    //Initilaize List Page
+    let list = doceument.getElementById('selection_list')
+    for (let i = 0; i<datasets.length; i++) {
+      let dataset = datasets[i];
+      let new_list_elem = createElement('li');
+      //new_list_elem.a
+      list.append(new_list_elem);
+    }
+
 }
 
 //Colors each country according to 'country_color()'
@@ -74,8 +86,10 @@ function country_color(country_name) {
   return 'red';
 }
 
-var rotate_test = function(){
-  projection.rotate([90,0,0]);
+var rotate_left = function(){
+  x += 45;
+  console.log([x,0,0]);
+  projection.rotate([x,0,0]);
   d3.select('svg')
     .selectAll("path")
     .attr('d', map);

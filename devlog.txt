@@ -94,3 +94,10 @@ HenryB 2023-5-12 12:16
   - Multiple bugs
   - Based on initial location
 ==============================================================
+
+HenryB 2023-5-15 09:22
+--------------------------------------------------------------
+- Added bootstrap
+- Started selection list html
+- Started js to rebuild selection list when needed
+==============================================================
