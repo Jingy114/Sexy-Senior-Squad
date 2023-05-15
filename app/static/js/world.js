@@ -89,12 +89,12 @@ async function build_list() {
     let new_list_elem = document.createElement('li');
     new_list_elem.className = "list-group-item list-group-item-action";
     let new_list_elem_link = document.createElement('a');
-    new_list_elem_link.href = "register";
+    new_list_elem_link.href = "load/"+dataset;
     let new_list_elem_text = document.createTextNode(dataset);
     new_list_elem_link.appendChild(new_list_elem_text);
     new_list_elem.appendChild(new_list_elem_link);
     list.appendChild(new_list_elem);
-    console.log(new_list_elem);
+    //console.log(new_list_elem);
   }
   if (datasets.length == 0) {
     let new_list_elem = document.createElement('li');

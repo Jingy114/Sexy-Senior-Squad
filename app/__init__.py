@@ -59,6 +59,12 @@ def logout():
 def testing():
     return render_template('home.html')
 
+# Loading Data Set
+@app.route("/load/<dataset>")
+def load_dataset(dataset):
+    print(dataset)
+    return redirect("/testing")
+
 if __name__ == "__main__":
     app.debug = True
     app.run(port=1026)

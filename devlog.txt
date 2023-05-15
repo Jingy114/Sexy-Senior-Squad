@@ -101,3 +101,11 @@ HenryB 2023-5-15 09:22
 - Started selection list html
 - Started js to rebuild selection list when needed
 ==============================================================
+
+HenryB 2023-5-15 19:24
+--------------------------------------------------------------
+- Bootstrap/css for selection list
+- Finished js to build selection list + default list
+- Additional css for globe
+- Better formatting/comments
+==============================================================
