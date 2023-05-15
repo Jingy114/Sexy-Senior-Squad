@@ -61,12 +61,14 @@ function setup(info) {
     //Currently only triggers on the borders themselves
 
     //Initilaize List Page
-    let list = doceument.getElementById('selection_list')
+    let list = document.getElementById('selection_list')
     for (let i = 0; i<datasets.length; i++) {
       let dataset = datasets[i];
-      let new_list_elem = createElement('li');
+      let new_list_elem = document.createElement('li');
       //new_list_elem.a
-      list.append(new_list_elem);
+      list.appendChild(new_list_elem);
+      //document.insertBefore(new_list_elem, list);
+      console.log(new_list_elem);
     }
 
 }
