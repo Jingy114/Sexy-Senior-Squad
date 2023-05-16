@@ -12,6 +12,7 @@
 
 <body>
   <div class="row">
+    <!-- Globe -->
     <div class="col">
       <div id="globe">
         <svg width="750px" height="500px">
@@ -20,27 +21,29 @@
       </div>
 
       <button id="rotate"> Rotate Left </button>
-      <!-- <button type="button" class="btn btn-secondary" data-toggle="popover" data-placement="right" title="Popover title" data-content="Popover content goes here.">Popover</button> -->
     </div>
 
     <div class="col options_panel">
       <!-- Selection List -->
       <div class="row">
-        <ul id='selection_list' class="list-group">
-          <!-- JS Builds List Here -->
-        </ul>
+        <h4> Select Which Data to Display: </h3>
+          <ul id='selection_list' class="list-group">
+            <!-- JS Builds List Here -->
+          </ul>
       </div>
 
       <br>
       <!-- Select-Function Selector -->
       <div class="row">
-        <select class="form-select">
-          <option>Multiplication</option>
-          <option>Division</option>
-          <option>Addition</option>
-          <option>Subtraction</option>
-        </select>
-        <button type="submit"> Confirm </button>
+        <form>
+          <select class="form-select" name="operation">
+            <option>Multiplication</option>
+            <option>Division</option>
+            <option>Addition</option>
+            <option>Subtraction</option>
+          </select>
+          <button type="submit" onClick="select_function(this.form)"> Confirm </button>
+        </form>
       </div>
 
       <br>
@@ -52,7 +55,10 @@
           </select>
         </div>
         <div class="col">
-          X
+          <div id="operation">
+          <!-- JS Places Operation Here -->
+          Multiplication
+        </div>
         </div>
         <div class="col">
           <select id="dataset_selector_2" class="form-select">

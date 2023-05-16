@@ -14,7 +14,7 @@ let x = 0;
 let y = 0;
 let z = 0;
 
-let datasets = ["Data a", "Data b"];
+let datasets = ["Data a", "Data b", "Data c"];
 
 function setup(info) {
   //Initilaize Selction List
@@ -113,6 +113,15 @@ async function build_lists() {
     new_list_elem.appendChild(new_list_elem_text);
     list.appendChild(new_list_elem);
   }
+}
+
+function select_function(form) {
+  let operation = form.operation.value;
+  console.log(operation);
+  let operation_display = document.getElementById("operation");
+  console.log(operation_display);
+  //operation_display.innerHtml = operation;
+  //Have to see why this reloads page...........
 }
 
 
