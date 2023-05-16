@@ -123,3 +123,10 @@ HenryB 2023-5-16 09:23
 - Displays hovered over country name but bugs
 - Started function to change operation
 ==============================================================
+
+HenryB 2023-5-16 12:22
+--------------------------------------------------------------
+- Display bugs fixed
+- Html improvements
+- Loading "screen" before globe loads
+==============================================================
