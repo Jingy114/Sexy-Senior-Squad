@@ -47,8 +47,9 @@ function setup(info) {
       let country_true_name = country_name.replaceAll("_", " ");
       console.log(country_true_name); //Will be used for popover
       let selected_country_display = document.getElementById("selected_country");
-      let selected_country_display_text = document.createTextNode(country_true_name);
-      selected_country_display.appendChild(selected_country_display_text);
+      // let selected_country_display_text = document.createTextNode(country_true_name);
+      // selected_country_display.appendChild(selected_country_display_text);
+      selected_country_display.innerHTML = country_true_name;
     });
   }
 
