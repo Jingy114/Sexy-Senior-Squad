@@ -116,3 +116,10 @@ HenryB 2023-5-15 22:35
 selection options
 - Js to build selection options for those
 ==============================================================
+
+HenryB 2023-5-16 09:23
+--------------------------------------------------------------
+- Country panel info started
+- Displays hovered over country name but bugs
+- Started function to change operation
+==============================================================

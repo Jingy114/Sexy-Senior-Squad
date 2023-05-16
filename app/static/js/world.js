@@ -46,6 +46,9 @@ function setup(info) {
     country_js.addEventListener("mouseover", function() {
       let country_true_name = country_name.replaceAll("_", " ");
       console.log(country_true_name); //Will be used for popover
+      let selected_country_display = document.getElementById("selected_country");
+      let selected_country_display_text = document.createTextNode(country_true_name);
+      selected_country_display.appendChild(selected_country_display_text);
     });
   }
 
@@ -62,9 +65,6 @@ function setup(info) {
   let moveable_globe = document.getElementById('map');
   //moveable_globe.addEventListener("mousemove", rotate_to); //+mousedown + mousemove/mouseover?
   //Currently only triggers on the borders themselves
-
-
-
 }
 
 //Colors each country according to 'country_color()'

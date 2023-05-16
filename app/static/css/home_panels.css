@@ -14,3 +14,7 @@ a:hover {
   text-decoration: underline;
   text-decoration-color: #565656;
 }
+
+.country_panel {
+  background-color: #ADD8E6;
+}
