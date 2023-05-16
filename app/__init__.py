@@ -62,8 +62,8 @@ def testing():
 # Loading Data Set
 @app.route("/load/<dataset>")
 def load_dataset(dataset):
-    print(dataset)
-    return redirect("/testing")
+    #json_dataset = {'dataset'dataset}
+    return redirect("/testing")#, dataset=json_dataset)
 
 if __name__ == "__main__":
     app.debug = True

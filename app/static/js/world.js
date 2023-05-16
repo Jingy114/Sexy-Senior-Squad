@@ -83,7 +83,8 @@ function country_color(country_name) {
 
 //Builds selection list based on 'databases'
 async function build_list() {
-  let list = document.getElementById('selection_list')
+  //console.log(chosen_dataset);
+  let list = document.getElementById('selection_list');
   for (let i = 0; i < datasets.length; i++) {
     let dataset = datasets[i];
     let new_list_elem = document.createElement('li');
