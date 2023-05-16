@@ -3,3 +3,7 @@ path {
   stroke: black;
   stroke-width: 0.2;
 }
+
+.load {
+  font-size: 30px;
+}

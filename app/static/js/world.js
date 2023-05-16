@@ -52,6 +52,9 @@ function setup(info) {
       selected_country_display.innerHTML = country_true_name;
     });
   }
+  //Remove loading notif
+  let loading_screen = document.getElementById('load');
+  loading_screen.remove();
 
   //Initialize Colors
   update_colors();
@@ -116,6 +119,10 @@ async function build_lists() {
   }
 }
 
+// async function load_screen(){
+//   let load_screen = document.getElementById()
+// }
+
 function select_function(form) {
   let operation = form.operation.value;
   console.log(operation);
@@ -124,7 +131,6 @@ function select_function(form) {
   //operation_display.innerHtml = operation;
   //Have to see why this reloads page...........
 }
-
 
 var rotate_left = function() {
   x += 45;
@@ -150,5 +156,6 @@ var rotate_to = function(e) {
     .attr('d', map);
 }
 
+//load_screen();
 build_lists();
 get_data(setup);
