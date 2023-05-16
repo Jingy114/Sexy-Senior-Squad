@@ -81,10 +81,12 @@ function country_color(country_name) {
   return 'red';
 }
 
-//Builds selection list based on 'databases'
-async function build_list() {
+//Builds selection lists based on 'databases'
+async function build_lists() {
   //console.log(chosen_dataset);
   let list = document.getElementById('selection_list');
+  let selector1 = document.getElementById('dataset_selector_1');
+  let selector2 = document.getElementById('dataset_selector_2');
   for (let i = 0; i < datasets.length; i++) {
     let dataset = datasets[i];
     let new_list_elem = document.createElement('li');
@@ -96,6 +98,13 @@ async function build_list() {
     new_list_elem.appendChild(new_list_elem_link);
     list.appendChild(new_list_elem);
     //console.log(new_list_elem);
+    let new_selector_elem = document.createElement('option');
+    let new_selector_elem_text = document.createTextNode(dataset);
+    new_selector_elem.value = i;
+    new_selector_elem.appendChild(new_selector_elem_text);
+    second_new_selector_elem = new_selector_elem.cloneNode(true);
+    selector1.appendChild(new_selector_elem);
+    selector2.appendChild(second_new_selector_elem);
   }
   if (datasets.length == 0) {
     let new_list_elem = document.createElement('li');
@@ -131,5 +140,5 @@ var rotate_to = function(e) {
     .attr('d', map);
 }
 
-build_list();
+build_lists();
 get_data(setup);

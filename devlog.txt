@@ -109,3 +109,10 @@ HenryB 2023-5-15 19:24
 - Additional css for globe
 - Better formatting/comments
 ==============================================================
+
+HenryB 2023-5-15 22:35
+--------------------------------------------------------------
+- Html/css/bootstrap for options page for additional
+selection options
+- Js to build selection options for those
+==============================================================

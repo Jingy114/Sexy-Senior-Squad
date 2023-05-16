@@ -24,17 +24,42 @@
     </div>
 
     <div class="col options_panel">
+      <!-- Selection List -->
       <div class="row">
         <ul id='selection_list' class="list-group">
           <!-- JS Builds List Here -->
         </ul>
       </div>
+
+      <br>
+      <!-- Select-Function Selector -->
       <div class="row">
         <select class="form-select">
-          <option>Uno</option>
-          <option>Dos</option>
-          <option>Tres</option>
+          <option>Multiplication</option>
+          <option>Division</option>
+          <option>Addition</option>
+          <option>Subtraction</option>
         </select>
+        <button type="submit"> Confirm </button>
+      </div>
+
+      <br>
+      <!-- Function Selector -->
+      <div class="row">
+        <div class="col">
+          <select id="dataset_selector_1" class="form-select">
+            <!-- JS Builds Options Here -->
+          </select>
+        </div>
+        <div class="col">
+          X
+        </div>
+        <div class="col">
+          <select id="dataset_selector_2" class="form-select">
+            <!-- JS Builds Options Here -->
+          </select>
+        </div>
+        <button type="submit"> Confirm </button>
       </div>
     </div>
   </div>
