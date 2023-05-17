@@ -131,6 +131,18 @@ HenryB 2023-5-16 12:22
 - Loading "screen" before globe loads
 ==============================================================
 
+FaiyazR 2023-5-16 11:00
+--------------------------------------------------------------
+- Basic csv file import and manipulation
+==============================================================
+
+FaiyazR 2023-5-10 9:16
+--------------------------------------------------------------
+- any csv file can be made into a database table and specific
+data can be extracted/updated
+- some stuff doesn't work, still gotta fix for full functionality
+==============================================================
+
 HenryB 2023-5-17 09:42
 --------------------------------------------------------------
 - Allows for a country to be selected so its data can be
