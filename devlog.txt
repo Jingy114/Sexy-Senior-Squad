@@ -130,3 +130,9 @@ HenryB 2023-5-16 12:22
 - Html improvements
 - Loading "screen" before globe loads
 ==============================================================
+
+HenryB 2023-5-17 09:42
+--------------------------------------------------------------
+- Allows for a country to be selected so its data can be
+viewed
+==============================================================

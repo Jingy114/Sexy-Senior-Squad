@@ -14,7 +14,11 @@ let x = 0;
 let y = 0;
 let z = 0;
 
-let datasets = ["Data a", "Data b", "Data c"];
+let country_true_name = "N/A";
+let would_be_country_true_name = "N/A";
+let country_hold = false;
+
+let datasets = ["Data a", "Data b", "Data c", "Data d", "Data f"];
 
 function setup(info) {
   //Initilaize Selction List
@@ -44,14 +48,23 @@ function setup(info) {
     let country_name = country_list[i];
     let country_js = document.getElementById(country_name);
     country_js.addEventListener("mouseover", function() {
-      let country_true_name = country_name.replaceAll("_", " ");
-      console.log(country_true_name); //Will be used for popover
-      let selected_country_display = document.getElementById("selected_country");
-      // let selected_country_display_text = document.createTextNode(country_true_name);
-      // selected_country_display.appendChild(selected_country_display_text);
-      selected_country_display.innerHTML = country_true_name;
+      would_be_country_true_name = country_name.replaceAll("_", " ");
+      console.log(would_be_country_true_name);
+      if (country_hold == false) {
+        country_true_name = would_be_country_true_name;
+        //console.log(country_true_name); //Will be used for popover
+        let selected_country_display = document.getElementById("selected_country");
+        // let selected_country_display_text = document.createTextNode(country_true_name);
+        // selected_country_display.appendChild(selected_country_display_text);
+        selected_country_display.innerHTML = country_true_name;
+      }
     });
   }
+
+  //Country hold on click
+  let svg = document.getElementById('svg');
+  svg.addEventListener('click', save_current);
+
   //Remove loading notif
   let loading_screen = document.getElementById('load');
   loading_screen.remove();
@@ -82,6 +95,7 @@ function update_colors() {
 }
 
 function country_color(country_name) {
+  //console.log(select_data("test.db", "*", "USA"))
   return 'red';
 }
 
@@ -96,7 +110,7 @@ async function build_lists() {
     let new_list_elem = document.createElement('li');
     new_list_elem.className = "list-group-item list-group-item-action";
     let new_list_elem_link = document.createElement('a');
-    new_list_elem_link.href = "load/"+dataset;
+    new_list_elem_link.href = "load/" + dataset;
     let new_list_elem_text = document.createTextNode(dataset);
     new_list_elem_link.appendChild(new_list_elem_text);
     new_list_elem.appendChild(new_list_elem_link);
@@ -155,6 +169,34 @@ var rotate_to = function(e) {
     .selectAll("path")
     .attr('d', map);
 }
+
+var save_current = function(e) {
+  if (country_true_name == 'N/A') {
+    return false;
+  }
+  let hold_indication = document.getElementById('selected_hold');
+  if (country_hold == true) {
+    country_hold = false;
+    hold_indication.innerHTML = "false";
+    country_true_name = would_be_country_true_name;
+    let selected_country_display = document.getElementById("selected_country");
+    selected_country_display.innerHTML = country_true_name;
+    return false;
+  }
+  country_hold = true;
+  //Show data
+  hold_indication.innerHTML = "true";
+  return true;
+}
+
+// function select_data (table_name, column_name, condition) {
+//   let database = sqlite3.connect('test.db');
+//   let cursor = database.cursor();
+//   cursor.execute("SELECT {column_name} FROM {table_name} WHERE {condition}");
+//   database.close();
+//   return cursor.fetchall();
+// }
+
 
 //load_screen();
 build_lists();
