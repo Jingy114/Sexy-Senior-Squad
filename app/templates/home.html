@@ -39,17 +39,12 @@
       <br>
       <!-- Select-Function Selector -->
       <div class="row">
-        <form>
-          <select class="form-select" name="operation">
-            <option>Multiplication</option>
-            <option>Division</option>
-            <option>Addition</option>
-            <option>Subtraction</option>
-          </select>
-          <center>
-            <button type="submit" onClick="select_function(this.form)"> ‎‎‏‏‎ ‎‏‏‎ ‎Confirm‏‏‎ ‎‏‏‎ ‎ </button>
-          </center>
-        </form>
+        <select class="form-select" onchange="select_function(this.value)">
+          <option value="Multiplied By">Multiplication</option>
+          <option value="Divided By">Division</option>
+          <option value="Added To">Addition</option>
+          <option value="Subtracted From">Subtraction</option>
+        </select>
       </div>
 
       <br>

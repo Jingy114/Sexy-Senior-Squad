@@ -148,3 +148,10 @@ HenryB 2023-5-17 09:42
 - Allows for a country to be selected so its data can be
 viewed
 ==============================================================
+
+HenryB 2023-5-17 19:51
+--------------------------------------------------------------
+- Fixed selected country bugs
+- Selected country shows blue
+- Function to change operation works
+==============================================================

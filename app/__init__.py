@@ -41,7 +41,7 @@ def register():
         return render_template('register.html')
 
 
-@app.route("/home")
+@app.route("/home", methods=['POST'])
 def home():
     if 'username' in session:
         return render_template('home.html', username=session['username'])
@@ -55,7 +55,7 @@ def logout():
     return redirect('/')
 
 # Testing route
-@app.route("/testing")
+@app.route("/testing", methods=['POST'])
 def testing():
     return render_template('home.html')
 

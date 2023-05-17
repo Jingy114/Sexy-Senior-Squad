@@ -137,13 +137,9 @@ async function build_lists() {
 //   let load_screen = document.getElementById()
 // }
 
-function select_function(form) {
-  let operation = form.operation.value;
-  console.log(operation);
+function select_function(operation) {
   let operation_display = document.getElementById("operation");
-  console.log(operation_display);
-  //operation_display.innerHtml = operation;
-  //Have to see why this reloads page...........
+  operation_display.innerHTML = operation;
 }
 
 var rotate_left = function() {
@@ -175,17 +171,22 @@ var save_current = function(e) {
     return false;
   }
   let hold_indication = document.getElementById('selected_hold');
+  let country_name = country_true_name.replaceAll(" ", "_");
+  let country_d3 = d3.select('#globe g.map')
+    .select('#' + country_name);
   if (country_hold == true) {
     country_hold = false;
     hold_indication.innerHTML = "false";
     country_true_name = would_be_country_true_name;
     let selected_country_display = document.getElementById("selected_country");
     selected_country_display.innerHTML = country_true_name;
+    country_d3.style("fill", country_color(country_name));
     return false;
   }
   country_hold = true;
   //Show data
   hold_indication.innerHTML = "true";
+  country_d3.style("fill", "#257AFD");
   return true;
 }
 
