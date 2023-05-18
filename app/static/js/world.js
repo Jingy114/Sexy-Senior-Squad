@@ -18,7 +18,7 @@ let would_be_country_true_name = "N/A";
 let country_hold = false;
 
 let operation = "Multiplied By";
-let datasets = ["Data a", "Data b", "Data c", "Data d", "Data f"];
+let datasets = ["Data c", "Data d", "Data f"];
 
 function setup(info) {
   //Initilaize Selction List
@@ -216,13 +216,26 @@ var save_current = function(e) {
   return true;
 }
 
-// function select_data (table_name, column_name, condition) {
-//   let database = sqlite3.connect('test.db');
-//   let cursor = database.cursor();
-//   cursor.execute("SELECT {column_name} FROM {table_name} WHERE {condition}");
-//   database.close();
-//   return cursor.fetchall();
-// }
+function process_data(formElement) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState === this.DONE) {
+        var responseText = xhttp.responseText;
+        alert(responseText);
+      }
+    };
+
+    //opens a request to send the data to the URL form.action via form.method
+    //note the false at the end of the xhttp.open call
+    //if set to true, no javascript code will be run after the form is submitted, until the reponse from the form is returned
+    //if set to false, other javascript code will run while the xhttp object waits for the response
+    xhttp.open(formElement.method, formElement.action, false);
+
+    var data = new FormData(formElement); //gets the form's data as a FormData object
+    xhttp.send(data); //sends the FormData object
+    //because a FormData object is being sent, it will automatically send with the same encoding as an HTML form element would send its data
+    return false;
+}
 
 
 //load_screen();

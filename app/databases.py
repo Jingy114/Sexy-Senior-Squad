@@ -28,6 +28,7 @@ class DatabaseManager:
         self.conn.close()
 
 
+
 if __name__ == "__main__":
     db_manager = DatabaseManager('my_database.db')
     db_manager.create_table_from_csv('data.csv', 'my_table')
