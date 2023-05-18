@@ -23,51 +23,70 @@
           <g id='map' class="map" transform="translate(-100,0)"></g>
         </svg>
       </div>
-
-      <button id="rotate"> Rotate Left </button>
+      <!-- Rotate Buttons -->
+      <center>
+        <div class="btn-group">
+          <button id="rotate_left"> Left </button>
+          <button id="rotate_right"> Right </button>
+        </div>
+        <div class="btn-group">
+          <button id="rotate_up"> Up </button>
+          <button id="rotate_down"> Down </button>
+        </div>
+      </center>
     </div>
 
     <div class="col options_panel">
       <!-- Selection List -->
       <div class="row">
         <h4> Select Which Data to Display: </h3>
-          <ul id='selection_list' class="list-group">
-            <!-- JS Builds List Here -->
-          </ul>
+          <div class="col">
+            <ul id='selection_list' class="list-group">
+              <!-- JS Builds List Here -->
+            </ul>
+          </div>
       </div>
 
       <br>
       <!-- Select-Function Selector -->
       <div class="row">
-        <select class="form-select" onchange="select_function(this.value)">
-          <option value="Multiplied By">Multiplication</option>
-          <option value="Divided By">Division</option>
-          <option value="Added To">Addition</option>
-          <option value="Subtracted From">Subtraction</option>
-        </select>
+        <div class="col">
+          <select class="form-select" onchange="select_function(this.value)">
+            <option value="Multiplied By">Multiplication</option>
+            <option value="Divided By">Division</option>
+            <option value="Added To">Addition</option>
+            <option value="Subtracted From">Subtraction</option>
+          </select>
+        </div>
       </div>
 
       <br>
       <!-- Function Selector -->
-      <div class="row">
-        <div class="col">
-          <select id="dataset_selector_1" class="form-select">
-            <!-- JS Builds Options Here -->
-          </select>
-        </div>
-        <div class="col">
-          <div id="operation">
-            <!-- JS Places Operation Here -->
-            Multiplication
+      <form method='post'>
+        <div class="row">
+          <div class="col">
+            <select id="dataset_selector_1" class="form-select">
+              <!-- JS Builds Options Here -->
+            </select>
           </div>
+          <div class="col">
+            <center>
+              <div id="operation">
+                <!-- JS Places Operation Here -->
+                Multiplied By
+              </div>
+            </center>
+          </div>
+          <div class="col">
+            <select id="dataset_selector_2" class="form-select">
+              <!-- JS Builds Options Here -->
+            </select>
+          </div>
+          <center>
+            <button type="submit" class="btn btn-secondary" onClick="run_data_function(this.form)"> Confirm </button>
+          </center>
         </div>
-        <div class="col">
-          <select id="dataset_selector_2" class="form-select">
-            <!-- JS Builds Options Here -->
-          </select>
-        </div>
-        <button type="submit"> Confirm </button>
-      </div>
+      </form>
     </div>
   </div>
   <!-- Second level: Country status/data -->

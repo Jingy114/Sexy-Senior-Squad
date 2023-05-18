@@ -149,9 +149,11 @@ HenryB 2023-5-17 09:42
 viewed
 ==============================================================
 
-HenryB 2023-5-17 19:51
+HenryB 2023-5-17 20:18
 --------------------------------------------------------------
 - Fixed selected country bugs
 - Selected country shows blue
 - Function to change operation works
+- Boostrap css/html for select button
+- Buttons for rotating in all directions
 ==============================================================

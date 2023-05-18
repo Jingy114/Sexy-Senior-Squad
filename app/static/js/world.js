@@ -12,12 +12,12 @@ let projection;
 let map;
 let x = 0;
 let y = 0;
-let z = 0;
 
 let country_true_name = "N/A";
 let would_be_country_true_name = "N/A";
 let country_hold = false;
 
+let operation = "Multiplied By";
 let datasets = ["Data a", "Data b", "Data c", "Data d", "Data f"];
 
 function setup(info) {
@@ -74,9 +74,11 @@ function setup(info) {
 
   //rotate_to(x,y,z);
 
-  //Button testing rotate stuff
-  let button = document.getElementById('rotate');
-  button.addEventListener("click", rotate_left);
+  //Button rotate functions
+  document.getElementById('rotate_left').addEventListener("click", rotate_left);
+  document.getElementById('rotate_right').addEventListener("click", rotate_right);
+  document.getElementById('rotate_up').addEventListener("click", rotate_up);
+  document.getElementById('rotate_down').addEventListener("click", rotate_down);
 
   //Mouse rotate stuff
   let moveable_globe = document.getElementById('map');
@@ -137,19 +139,43 @@ async function build_lists() {
 //   let load_screen = document.getElementById()
 // }
 
-function select_function(operation) {
+function select_function(chosen_operation) {
   let operation_display = document.getElementById("operation");
-  operation_display.innerHTML = operation;
+  operation_display.innerHTML = chosen_operation;
+  operation = chosen_operation;
 }
 
+function run_data_function(form) {
+  console.log("test");
+}
+
+let sens = 45;
+
 var rotate_left = function() {
-  x += 45;
-  console.log([x, 0, 0]);
-  projection.rotate([x, 0, 0]);
+  x += sens;
+  rotate_globe();
+}
+
+var rotate_right = function() {
+  x -= sens;
+  rotate_globe();
+}
+
+var rotate_up = function() {
+  y -= sens;
+  rotate_globe();
+}
+
+var rotate_down = function() {
+  y += sens;
+  rotate_globe();
+}
+
+function rotate_globe(){
+  projection.rotate([x, y, 0]);
   d3.select('svg')
     .selectAll("path")
     .attr('d', map);
-  //console.log(rotation_array)
 }
 
 let sensitity = 1 / 10;
