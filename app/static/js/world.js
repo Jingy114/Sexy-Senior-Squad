@@ -12,9 +12,13 @@ let projection;
 let map;
 let x = 0;
 let y = 0;
-let z = 0;
 
-let datasets = ["Data a", "Data b", "Data c"];
+let country_true_name = "N/A";
+let would_be_country_true_name = "N/A";
+let country_hold = false;
+
+let operation = "Multiplied By";
+let datasets = ["Data c", "Data d", "Data f"];
 
 function setup(info) {
   //Initilaize Selction List
@@ -44,14 +48,23 @@ function setup(info) {
     let country_name = country_list[i];
     let country_js = document.getElementById(country_name);
     country_js.addEventListener("mouseover", function() {
-      let country_true_name = country_name.replaceAll("_", " ");
-      console.log(country_true_name); //Will be used for popover
-      let selected_country_display = document.getElementById("selected_country");
-      // let selected_country_display_text = document.createTextNode(country_true_name);
-      // selected_country_display.appendChild(selected_country_display_text);
-      selected_country_display.innerHTML = country_true_name;
+      would_be_country_true_name = country_name.replaceAll("_", " ");
+      console.log(would_be_country_true_name);
+      if (country_hold == false) {
+        country_true_name = would_be_country_true_name;
+        //console.log(country_true_name); //Will be used for popover
+        let selected_country_display = document.getElementById("selected_country");
+        // let selected_country_display_text = document.createTextNode(country_true_name);
+        // selected_country_display.appendChild(selected_country_display_text);
+        selected_country_display.innerHTML = country_true_name;
+      }
     });
   }
+
+  //Country hold on click
+  let svg = document.getElementById('svg');
+  svg.addEventListener('click', save_current);
+
   //Remove loading notif
   let loading_screen = document.getElementById('load');
   loading_screen.remove();
@@ -61,9 +74,11 @@ function setup(info) {
 
   //rotate_to(x,y,z);
 
-  //Button testing rotate stuff
-  let button = document.getElementById('rotate');
-  button.addEventListener("click", rotate_left);
+  //Button rotate functions
+  document.getElementById('rotate_left').addEventListener("click", rotate_left);
+  document.getElementById('rotate_right').addEventListener("click", rotate_right);
+  document.getElementById('rotate_up').addEventListener("click", rotate_up);
+  document.getElementById('rotate_down').addEventListener("click", rotate_down);
 
   //Mouse rotate stuff
   let moveable_globe = document.getElementById('map');
@@ -82,6 +97,7 @@ function update_colors() {
 }
 
 function country_color(country_name) {
+  //console.log(select_data("test.db", "*", "USA"))
   return 'red';
 }
 
@@ -96,7 +112,7 @@ async function build_lists() {
     let new_list_elem = document.createElement('li');
     new_list_elem.className = "list-group-item list-group-item-action";
     let new_list_elem_link = document.createElement('a');
-    new_list_elem_link.href = "load/"+dataset;
+    new_list_elem_link.href = "load/" + dataset;
     let new_list_elem_text = document.createTextNode(dataset);
     new_list_elem_link.appendChild(new_list_elem_text);
     new_list_elem.appendChild(new_list_elem_link);
@@ -123,23 +139,43 @@ async function build_lists() {
 //   let load_screen = document.getElementById()
 // }
 
-function select_function(form) {
-  let operation = form.operation.value;
-  console.log(operation);
+function select_function(chosen_operation) {
   let operation_display = document.getElementById("operation");
-  console.log(operation_display);
-  //operation_display.innerHtml = operation;
-  //Have to see why this reloads page...........
+  operation_display.innerHTML = chosen_operation;
+  operation = chosen_operation;
 }
 
+function run_data_function(form) {
+  console.log("test");
+}
+
+let sens = 45;
+
 var rotate_left = function() {
-  x += 45;
-  console.log([x, 0, 0]);
-  projection.rotate([x, 0, 0]);
+  x += sens;
+  rotate_globe();
+}
+
+var rotate_right = function() {
+  x -= sens;
+  rotate_globe();
+}
+
+var rotate_up = function() {
+  y -= sens;
+  rotate_globe();
+}
+
+var rotate_down = function() {
+  y += sens;
+  rotate_globe();
+}
+
+function rotate_globe(){
+  projection.rotate([x, y, 0]);
   d3.select('svg')
     .selectAll("path")
     .attr('d', map);
-  //console.log(rotation_array)
 }
 
 let sensitity = 1 / 10;
@@ -155,6 +191,52 @@ var rotate_to = function(e) {
     .selectAll("path")
     .attr('d', map);
 }
+
+var save_current = function(e) {
+  if (country_true_name == 'N/A') {
+    return false;
+  }
+  let hold_indication = document.getElementById('selected_hold');
+  let country_name = country_true_name.replaceAll(" ", "_");
+  let country_d3 = d3.select('#globe g.map')
+    .select('#' + country_name);
+  if (country_hold == true) {
+    country_hold = false;
+    hold_indication.innerHTML = "false";
+    country_true_name = would_be_country_true_name;
+    let selected_country_display = document.getElementById("selected_country");
+    selected_country_display.innerHTML = country_true_name;
+    country_d3.style("fill", country_color(country_name));
+    return false;
+  }
+  country_hold = true;
+  //Show data
+  hold_indication.innerHTML = "true";
+  country_d3.style("fill", "#257AFD");
+  return true;
+}
+
+function process_data(formElement) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState === this.DONE) {
+        var responseText = xhttp.responseText;
+        alert(responseText);
+      }
+    };
+
+    //opens a request to send the data to the URL form.action via form.method
+    //note the false at the end of the xhttp.open call
+    //if set to true, no javascript code will be run after the form is submitted, until the reponse from the form is returned
+    //if set to false, other javascript code will run while the xhttp object waits for the response
+    xhttp.open(formElement.method, formElement.action, false);
+
+    var data = new FormData(formElement); //gets the form's data as a FormData object
+    xhttp.send(data); //sends the FormData object
+    //because a FormData object is being sent, it will automatically send with the same encoding as an HTML form element would send its data
+    return false;
+}
+
 
 //load_screen();
 build_lists();

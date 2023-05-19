@@ -16,63 +16,77 @@
     <!-- Globe -->
     <div class="col">
       <div id="globe">
-        <svg width="750px" height="500px">
+        <svg id="svg" width="750px" height="500px">
           <text id="load" class="load" transform="translate(325,250)">
             Loading...
           </text>
           <g id='map' class="map" transform="translate(-100,0)"></g>
         </svg>
       </div>
-
-      <button id="rotate"> Rotate Left </button>
+      <!-- Rotate Buttons -->
+      <center>
+        <div class="btn-group">
+          <button id="rotate_left"> West </button>
+          <button id="rotate_right"> East </button>
+        </div>
+        <div class="btn-group">
+          <button id="rotate_up"> Up </button>
+          <button id="rotate_down"> Down </button>
+        </div>
+      </center>
     </div>
 
     <div class="col options_panel">
       <!-- Selection List -->
       <div class="row">
         <h4> Select Which Data to Display: </h3>
-          <ul id='selection_list' class="list-group">
-            <!-- JS Builds List Here -->
-          </ul>
+          <div class="col">
+            <ul id='selection_list' class="list-group">
+              <!-- JS Builds List Here -->
+            </ul>
+          </div>
       </div>
 
       <br>
       <!-- Select-Function Selector -->
       <div class="row">
-        <form>
-          <select class="form-select" name="operation">
-            <option>Multiplication</option>
-            <option>Division</option>
-            <option>Addition</option>
-            <option>Subtraction</option>
+        <div class="col">
+          <select class="form-select" onchange="select_function(this.value)">
+            <option value="Multiplied By">Multiplication</option>
+            <option value="Divided By">Division</option>
+            <option value="Added To">Addition</option>
+            <option value="Subtracted From">Subtraction</option>
           </select>
-          <center>
-            <button type="submit" onClick="select_function(this.form)"> ‎‎‏‏‎ ‎‏‏‎ ‎Confirm‏‏‎ ‎‏‏‎ ‎ </button>
-          </center>
-        </form>
+        </div>
       </div>
 
       <br>
       <!-- Function Selector -->
-      <div class="row">
-        <div class="col">
-          <select id="dataset_selector_1" class="form-select">
-            <!-- JS Builds Options Here -->
-          </select>
-        </div>
-        <div class="col">
-          <div id="operation">
-            <!-- JS Places Operation Here -->
-            Multiplication
+      <form method='post'>
+        <div class="row">
+          <div class="col">
+            <select id="dataset_selector_1" class="form-select">
+              <!-- JS Builds Options Here -->
+            </select>
           </div>
+          <div class="col">
+            <center>
+              <div id="operation">
+                <!-- JS Places Operation Here -->
+                Multiplied By
+              </div>
+            </center>
+          </div>
+          <div class="col">
+            <select id="dataset_selector_2" class="form-select">
+              <!-- JS Builds Options Here -->
+            </select>
+          </div>
+          <center>
+            <button type="submit" class="btn btn-secondary" onClick="run_data_function(this.form)"> Confirm </button>
+          </center>
         </div>
-        <div class="col">
-          <select id="dataset_selector_2" class="form-select">
-            <!-- JS Builds Options Here -->
-          </select>
-        </div>
-        <button type="submit"> Confirm </button>
-      </div>
+      </form>
     </div>
   </div>
   <!-- Second level: Country status/data -->
@@ -83,12 +97,23 @@
         <!-- JS Places Country Name Here -->
         No Country Selected
       </div>
+      <div id="selected_hold">
+        false
+      </div>
     </div>
   </div>
+
+  <form action="/form-submit" onsubmit="process_data(this); return false;" method="POST">
+    <input type="text" name="input-data" value="this is the input data sent" required>
+    <input type="submit" name="submit" value="send it!" />
+  </form>
 
 
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="../static/js/world.js"></script>
+  <script>
+
+  </script>
 </body>
 
 </html>

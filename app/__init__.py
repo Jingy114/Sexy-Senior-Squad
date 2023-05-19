@@ -41,7 +41,7 @@ def register():
         return render_template('register.html')
 
 
-@app.route("/home")
+@app.route("/home", methods=['POST'])
 def home():
     if 'username' in session:
         return render_template('home.html', username=session['username'])
@@ -55,15 +55,23 @@ def logout():
     return redirect('/')
 
 # Testing route
-@app.route("/testing")
+@app.route("/testing", methods=['POST'])
 def testing():
     return render_template('home.html')
 
 # Loading Data Set
-@app.route("/load/<dataset>")
+@app.route("/load/<dataset>", methods=['POST'])
 def load_dataset(dataset):
     #json_dataset = {'dataset'dataset}
+    print(request.form[""])
     return redirect("/testing")#, dataset=json_dataset)
+
+@app.route('/form-submit', methods=['POST'])
+def handleFormSubmission():
+    db_manager = databases.DatabaseManager('my_database.db')
+    data = db_manager.select_data('my_table', '*', "country = 'USA'")
+    db_manager.close()
+    return request.form["input-data"]+data
 
 if __name__ == "__main__":
     app.debug = True
