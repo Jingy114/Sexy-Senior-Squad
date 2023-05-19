@@ -30,14 +30,14 @@ class DatabaseManager:
 
 if __name__ == "__main__":
     db_manager = DatabaseManager('my_database.db')
-    db_manager.create_table_from_csv('data.csv', 'my_table')
+    db_manager.create_table_from_csv('population_by_country_2020.csv', 'my_table')
 
     # Example Usage
     # Get all rows from 'my_table' where 'country' is 'USA'
-    data = db_manager.select_data('my_table', '*', "country = 'USA'")
+    data = db_manager.select_data('my_table', 'Population', "Country = 'China'")
     print(data)
 
     # Update 'column_name' in 'my_table' to 'new_value' where 'country' is 'USA'
-    db_manager.update_data('my_table', 'column_name', 'new_value', "country = 'USA'")
+    #db_manager.update_data('my_table', 'column_name', 'new_value', "country = 'USA'")
 
     db_manager.close()
