@@ -143,6 +143,14 @@ HenryB 2023-5-16 12:22
 - Loading "screen" before globe loads
 ==============================================================
 
+FaiyazR 2023-5-17 9:51
+--------------------------------------------------------------
+- Create tables from datasets in csv format in sqlite using
+created methods
+- Created methods to allow for table manipulation, such as 
+select and update certain rows/colums
+==============================================================
+
 HenryB 2023-5-17 09:42
 --------------------------------------------------------------
 - Allows for a country to be selected so its data can be
@@ -156,4 +164,10 @@ HenryB 2023-5-17 20:18
 - Function to change operation works
 - Boostrap css/html for select button
 - Buttons for rotating in all directions
+==============================================================
+
+FaiyazR 2023-5-19 9:10
+--------------------------------------------------------------
+- Added support for xlsx file
+- Can convert xlsx to CSV via python method
 ==============================================================
