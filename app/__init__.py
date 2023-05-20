@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from db import *
+from databases import *
 
 app = Flask(__name__)
 app.secret_key = "sss"
@@ -68,7 +69,7 @@ def load_dataset(dataset):
 
 @app.route('/form-submit', methods=['POST'])
 def handleFormSubmission():
-    db_manager = databases.DatabaseManager('my_database.db')
+    db_manager = DatabaseManager('my_database.db')
     data = db_manager.select_data('my_table', '*', "country = 'USA'")
     db_manager.close()
     return request.form["input-data"]+data

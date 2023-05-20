@@ -13,9 +13,9 @@ def xlsx_to_csv(xlsx_file, csv_file):
     df.to_csv(csv_file, index=False)
 
 # Usage
-xlsx_file = 'input.xlsx'  # your xlsx file
-csv_file = 'output.csv'  # the output csv file
-xlsx_to_csv(xlsx_file, csv_file)
+# xlsx_file = 'input.xlsx'  # your xlsx file
+# csv_file = 'output.csv'  # the output csv file
+# xlsx_to_csv(xlsx_file, csv_file)
 
 class DatabaseManager:
     def __init__(self, db_name):
