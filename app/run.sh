@@ -1,5 +1,5 @@
-rm test.db
-python3 test_db.py
+rm my_database.db
+python3 databases.py
 
 python3 __init__.py
 
