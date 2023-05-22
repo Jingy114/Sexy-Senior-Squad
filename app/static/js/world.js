@@ -20,6 +20,8 @@ let country_hold = false;
 let operation = "Multiplied By";
 let datasets = ["Data c", "Data d", "Data f"];
 
+let data = [];
+
 function setup(info) {
   //Initilaize Selction List
   // build_list();
@@ -98,6 +100,9 @@ function update_colors() {
 
 function country_color(country_name) {
   //console.log(select_data("test.db", "*", "USA"))
+  if (data.length != 0){
+    return 'green';
+  }
   return 'red';
 }
 
@@ -111,6 +116,7 @@ async function build_lists() {
     let dataset = datasets[i];
     let new_list_elem = document.createElement('li');
     new_list_elem.className = "list-group-item list-group-item-action";
+    // HAVE TO TURN THESE TO FORMS
     let new_list_elem_link = document.createElement('a');
     new_list_elem_link.href = "load/" + dataset;
     let new_list_elem_text = document.createTextNode(dataset);
@@ -220,20 +226,12 @@ function process_data(formElement) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState === this.DONE) {
-        var responseText = xhttp.responseText;
-        alert(responseText);
+        data = xhttp.responseText;
       }
     };
+    xhttp.open(formElement.method, formElement.action, true);
 
-    //opens a request to send the data to the URL form.action via form.method
-    //note the false at the end of the xhttp.open call
-    //if set to true, no javascript code will be run after the form is submitted, until the reponse from the form is returned
-    //if set to false, other javascript code will run while the xhttp object waits for the response
-    xhttp.open(formElement.method, formElement.action, false);
-
-    var data = new FormData(formElement); //gets the form's data as a FormData object
-    xhttp.send(data); //sends the FormData object
-    //because a FormData object is being sent, it will automatically send with the same encoding as an HTML form element would send its data
+    var data_form = new FormData(formElement);
     return false;
 }
 

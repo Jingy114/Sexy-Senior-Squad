@@ -56,7 +56,7 @@ def logout():
     return redirect('/')
 
 # Testing route
-@app.route("/testing", methods=['POST'])
+@app.route("/testing", methods=['GET', 'POST'])
 def testing():
     return render_template('home.html')
 
