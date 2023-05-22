@@ -42,7 +42,7 @@ def register():
         return render_template('register.html')
 
 
-@app.route("/home", methods=['POST'])
+@app.route("/home")
 def home():
     if 'username' in session:
         return render_template('home.html', username=session['username'])
@@ -72,7 +72,7 @@ def handleFormSubmission():
     db_manager = DatabaseManager('my_database.db')
     data = db_manager.select_data('my_table', '*', "country = 'USA'")
     db_manager.close()
-    return request.form["input-data"]+data
+    return data
 
 if __name__ == "__main__":
     app.debug = True
