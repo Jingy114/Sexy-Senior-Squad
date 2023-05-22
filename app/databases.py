@@ -40,6 +40,11 @@ class DatabaseManager:
 
 
 if __name__ == "__main__":
+    
+    xlsx_file = 'sample.xlsx'  # your xlsx file
+    csv_file = 'sample.csv'  # the output csv file
+    xlsx_to_csv(xlsx_file, csv_file)
+
     db_manager = DatabaseManager('my_database.db')
     db_manager.create_table_from_csv('sample.csv', 'my_table')
 
