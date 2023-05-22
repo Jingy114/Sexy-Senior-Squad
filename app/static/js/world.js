@@ -117,11 +117,16 @@ async function build_lists() {
     let new_list_elem = document.createElement('li');
     new_list_elem.className = "list-group-item list-group-item-action";
     // HAVE TO TURN THESE TO FORMS
-    let new_list_elem_link = document.createElement('a');
-    new_list_elem_link.href = "load/" + dataset;
+    let new_list_elem_form = document.createElement('form');
+    new_list_elem_form.action = "/form-submit";
+    new_list_elem_form.onsubmit = "process_data(this); return false;";
+    let new_list_elem_button = document.createElement('button');
+
+    //action="/form-submit" onsubmit="process_data(this); return false;"
     let new_list_elem_text = document.createTextNode(dataset);
-    new_list_elem_link.appendChild(new_list_elem_text);
-    new_list_elem.appendChild(new_list_elem_link);
+    new_list_elem_button.appendChild(new_list_elem_text);
+    new_list_elem_form.appendChild(new_list_elem_button);
+    new_list_elem.appendChild(new_list_elem_form);
     list.appendChild(new_list_elem);
     //console.log(new_list_elem);
     let new_selector_elem = document.createElement('option');
