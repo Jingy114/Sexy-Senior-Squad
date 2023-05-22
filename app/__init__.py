@@ -42,7 +42,7 @@ def register():
         return render_template('register.html')
 
 
-@app.route("/home", methods=['POST'])
+@app.route("/home")
 def home():
     if 'username' in session:
         return render_template('home.html', username=session['username'])
