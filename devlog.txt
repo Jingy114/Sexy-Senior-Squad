@@ -147,7 +147,7 @@ FaiyazR 2023-5-17 9:51
 --------------------------------------------------------------
 - Create tables from datasets in csv format in sqlite using
 created methods
-- Created methods to allow for table manipulation, such as 
+- Created methods to allow for table manipulation, such as
 select and update certain rows/colums
 ==============================================================
 
@@ -171,3 +171,9 @@ FaiyazR 2023-5-19 9:10
 - Added support for xlsx file
 - Can convert xlsx to CSV via python method
 ==============================================================
+
+HenryB 2023-5-22 22:19
+--------------------------------------------------------------
+- Passing data from python to js to retrieve data from dataset
+- Revised js to build selection list in a new way
+============================================================== 
