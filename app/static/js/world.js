@@ -101,7 +101,7 @@ function update_colors(data) {
 
 function country_color(country_name, data) {
   //console.log(select_data("test.db", "*", "USA"))
-  if (data.length != 0){
+  if (data.length != 0) {
     return 'green';
   }
   return 'red';
@@ -185,7 +185,7 @@ var rotate_down = function() {
   rotate_globe();
 }
 
-function rotate_globe(){
+function rotate_globe() {
   projection.rotate([x, y, 0]);
   d3.select('svg')
     .selectAll("path")
@@ -231,19 +231,20 @@ var save_current = function(e) {
 }
 
 function process_data(formElement) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState === this.DONE) {
-        console.log('test!');
-        let data = xhttp.responseText;
-        update_colors(data);
-      }
-    };
-    xhttp.open(formElement.method, formElement.action, true);
+  console.log('test...');
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState === this.DONE) {
+      console.log('test!');
+      let data = xhttp.responseText;
+      update_colors(data);
+    }
+  };
+  xhttp.open(formElement.method, formElement.action, true);
 
-    //update_colors();
-    var data_form = new FormData(formElement);
-    return false;
+  //update_colors();
+  var data_form = new FormData(formElement);
+  return false;
 }
 
 
