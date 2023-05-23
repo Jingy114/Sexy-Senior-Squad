@@ -220,7 +220,7 @@ var save_current = function(e) {
     country_true_name = would_be_country_true_name;
     let selected_country_display = document.getElementById("selected_country");
     selected_country_display.innerHTML = country_true_name;
-    country_d3.style("fill", country_color(country_name));
+    country_d3.style("fill", country_color(country_name, []));
     return false;
   }
   country_hold = true;
