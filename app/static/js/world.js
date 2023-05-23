@@ -231,19 +231,18 @@ var save_current = function(e) {
 }
 
 function process_data(formElement) {
-  console.log('test...');
+  // console.log('test...');
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
-    if (this.readyState === this.DONE) {
-      console.log('test!');
+    if (this.readyState === 4) {
+      // console.log('test!');
       let data = xhttp.responseText;
       update_colors(data);
     }
   };
   xhttp.open(formElement.method, formElement.action, true);
-
-  //update_colors();
   var data_form = new FormData(formElement);
+  xhttp.send(data_form)
   return false;
 }
 

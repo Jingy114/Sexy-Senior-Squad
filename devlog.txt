@@ -176,4 +176,10 @@ HenryB 2023-5-22 22:19
 --------------------------------------------------------------
 - Passing data from python to js to retrieve data from dataset
 - Revised js to build selection list in a new way
-============================================================== 
+==============================================================
+
+HenryB 2023-5-23 17:38
+--------------------------------------------------------------
+- Fixed bug so now data can be successfully taken from the
+database and used in the js file
+==============================================================

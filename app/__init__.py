@@ -69,10 +69,10 @@ def load_dataset(dataset):
 
 @app.route('/form-submit', methods=['GET', 'POST'])
 def handleFormSubmission():
-    # db_manager = DatabaseManager('my_database.db')
-    # data = db_manager.select_data('my_table', '*', "country = 'USA'")
-    # db_manager.close()
-    return 'data'
+    db_manager = DatabaseManager('my_database.db')
+    data = db_manager.select_data('my_table', '*', "country = 'USA'")
+    db_manager.close()
+    return data
 
 if __name__ == "__main__":
     app.debug = True
