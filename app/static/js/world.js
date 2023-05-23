@@ -20,7 +20,7 @@ let country_hold = false;
 let operation = "Multiplied By";
 let datasets = ["Data c", "Data d", "Data f"];
 
-let data = [];
+//let data = [];
 
 function setup(info) {
   //Initilaize Selction List
@@ -72,7 +72,7 @@ function setup(info) {
   loading_screen.remove();
 
   //Initialize Colors
-  update_colors();
+  update_colors([]); // data elements
 
   //rotate_to(x,y,z);
 
@@ -89,16 +89,17 @@ function setup(info) {
 }
 
 //Colors each country according to 'country_color()'
-function update_colors() {
+function update_colors(data) {
+  console.log(data);
   for (let i = 0; i < country_list.length; i++) {
     let country_name = country_list[i];
     let country_d3 = d3.select('#globe g.map')
       .select('#' + country_name)
-      .style("fill", country_color(country_name));
+      .style("fill", country_color(country_name, data));
   }
 }
 
-function country_color(country_name) {
+function country_color(country_name, data) {
   //console.log(select_data("test.db", "*", "USA"))
   if (data.length != 0){
     return 'green';
@@ -119,13 +120,15 @@ async function build_lists() {
     // HAVE TO TURN THESE TO FORMS
     let new_list_elem_form = document.createElement('form');
     new_list_elem_form.action = "/form-submit";
-    new_list_elem_form.onsubmit = "process_data(this); return false;";
-    let new_list_elem_button = document.createElement('button');
+    new_list_elem_form.setAttribute("onsubmit", "process_data(this); return false;");
+    let new_list_elem_input = document.createElement('input');
+    new_list_elem_input.type = "submit";
+    new_list_elem_input.value = dataset;
 
     //action="/form-submit" onsubmit="process_data(this); return false;"
-    let new_list_elem_text = document.createTextNode(dataset);
-    new_list_elem_button.appendChild(new_list_elem_text);
-    new_list_elem_form.appendChild(new_list_elem_button);
+    //let new_list_elem_text = document.createTextNode(dataset);
+    //new_list_elem_input.appendChild(new_list_elem_text);
+    new_list_elem_form.appendChild(new_list_elem_input);
     new_list_elem.appendChild(new_list_elem_form);
     list.appendChild(new_list_elem);
     //console.log(new_list_elem);
@@ -231,11 +234,14 @@ function process_data(formElement) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
       if (this.readyState === this.DONE) {
-        data = xhttp.responseText;
+        console.log('test!');
+        let data = xhttp.responseText;
+        update_colors(data);
       }
     };
     xhttp.open(formElement.method, formElement.action, true);
 
+    //update_colors();
     var data_form = new FormData(formElement);
     return false;
 }

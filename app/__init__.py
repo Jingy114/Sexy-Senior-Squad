@@ -67,7 +67,7 @@ def load_dataset(dataset):
     print(request.form[""])
     return redirect("/testing")#, dataset=json_dataset)
 
-@app.route('/form-submit', methods=['POST'])
+@app.route('/form-submit', methods=['GET'])
 def handleFormSubmission():
     db_manager = DatabaseManager('my_database.db')
     data = db_manager.select_data('my_table', '*', "country = 'USA'")
