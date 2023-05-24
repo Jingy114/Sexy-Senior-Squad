@@ -10,7 +10,6 @@ app.secret_key = "sss"
 #    return render_template('testing.html')
 
 
-
 @app.route("/", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -56,63 +55,85 @@ def logout():
     return redirect('/')
 
 # Testing route
+
+
 @app.route("/testing", methods=['GET', 'POST'])
 def testing():
     return render_template('home.html')
 
 # Loading Data Set
+
+
 @app.route("/load/<dataset>", methods=['POST'])
 def load_dataset(dataset):
-    #json_dataset = {'dataset'dataset}
+    # json_dataset = {'dataset'dataset}
     print(request.form[""])
-    return redirect("/testing")#, dataset=json_dataset)
+    return redirect("/testing")  # , dataset=json_dataset)
+
 
 @app.route('/form-submit/<dataset>', methods=['GET', 'POST'])
 def handleFormSubmission(dataset):
     data_selected = dataset
     db_manager = DatabaseManager('my_database.db')
-    data_by_country = db_manager.select_all_data(data_selected, 'country,' +data_selected)
+    data_by_country = db_manager.select_all_data(
+        data_selected, 'country,' + data_selected)
     all_data = db_manager.select_all_data(data_selected, data_selected)
     db_manager.close()
     max = 0
-    for data in all_data :
+    for data in all_data:
         value = data[0]
-        if isinstance(value, str) :
+        if isinstance(value, str):
             value = float(value)
-        elif not isinstance(value, float) :
+        elif not isinstance(value, float):
             return [False]
-        if value > max :
+        if value > max:
             max = value
-    sanitized_data = [];
-    for data in data_by_country :
+    sanitized_data = []
+    for data in data_by_country:
         original_country_name = data[0]
         country_name = original_country_name.replace(" ", "").lower()
-        sanitized_data.append((country_name, data[1]));
+        sanitized_data.append((country_name, data[1]))
     # print(sanitized_data)
     return [True, dict(sanitized_data), max, data_selected]
+
 
 @app.route('/large-form-submit/<dataset>/<dataset2>', methods=['GET', 'POST'])
 def handleLargeFormSubmission(dataset, dataset2):
     db_manager = DatabaseManager('my_database.db')
-    data_by_country = db_manager.select_all_data(dataset, 'country,' +dataset)
-    data_by_country2 = db_manager.select_all_data(dataset2, 'country,' +dataset2)
+    data_by_country = db_manager.select_all_data(dataset, 'country,' + dataset)
+    data_by_country2 = db_manager.select_all_data(
+        dataset2, 'country,' + dataset2)
     db_manager.close()
-    # max = 0
-    # for data in all_data :
-    #     value = data[0]
-    #     if isinstance(value, str) :
-    #         value = float(value)
-    #     elif not isinstance(value, float) :
-    #         return [False]
-    #     if value > max :
-    #         max = value
-    sanitized_data = [];
-    for data in data_by_country :
+    sanitized_data = []
+    for data in data_by_country:
         original_country_name = data[0]
         country_name = original_country_name.replace(" ", "").lower()
-        sanitized_data.append((country_name, data[1]));
-    # print(sanitized_data)
-    return "yay"#[True, dict(sanitized_data), max, data_selected]
+        value = data[1]
+        if isinstance(value, str):
+            value = float(value)
+        elif not isinstance(value, float):
+            return [False]
+        sanitized_data.append((country_name, value))
+    dict_of_data = dict(sanitized_data)
+    max = 0
+    complete_sanitized_data = []
+    for data in data_by_country2:
+        original_country_name = data[0]
+        country_name = original_country_name.replace(" ", "").lower()
+        if country_name not in dict_of_data.keys():
+            pass
+        value = dict_of_data[country_name]
+        value2 = data[1]
+        if isinstance(value2, str):
+            value2 = float(value)
+        elif not isinstance(value2, float):
+            return [False]
+        new_value = value*value2
+        if new_value > max :
+            max = value
+        complete_sanitized_data.append((country_name, new_value))
+    return [True, dict(complete_sanitized_data), max]
+
 
 if __name__ == "__main__":
     app.debug = True
