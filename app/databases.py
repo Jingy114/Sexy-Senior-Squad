@@ -38,6 +38,20 @@ class DatabaseManager:
     def update_data(self, table_name, column_name, new_value, condition):
         self.cur.execute(f"UPDATE {table_name} SET {column_name} = ? WHERE {condition}", (new_value,))
         self.conn.commit()
+    
+    def remove_column(self, table_name, column_name):
+        self.cur.execute(f"PRAGMA table_info({table_name})")
+        columns_info = self.cur.fetchall()
+        columns = [column[1] for column in columns_info if column[1] != column_name]
+
+        if len(columns) != len(columns_info):
+            self.cur.execute(f"CREATE TABLE temp_table AS SELECT {', '.join(columns)} FROM {table_name}")
+            self.cur.execute(f"DROP TABLE {table_name}")
+            self.cur.execute(f"ALTER TABLE temp_table RENAME TO {table_name}")
+            self.conn.commit()
+        else:
+            print("Column not found in the table")
+
 
     def close(self):
         self.conn.close()
@@ -67,5 +81,13 @@ if __name__ == "__main__":
     # Check if the update has been successful
     data = db_manager.select_data('my_table', 'Population_Density_PerSqKm', "Country = 'Indonesia'")
     print('Updated Population Density for Indonesia:', data)
+    
+    # Remove columns from the table, tested working
+    
+    #db_manager.remove_column('my_table', 'Population_Density_PerSqKm')
+    
+    data = db_manager.select_data('my_table', 'Population_Density_PerSqKm', "Country = 'Indonesia'")
+    print('Updated Population Density for Indonesia:', data)
+    
 
     db_manager.close()
