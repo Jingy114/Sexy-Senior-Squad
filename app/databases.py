@@ -48,6 +48,26 @@ class DatabaseManager:
                 row = {key: value.strip() if isinstance(value, str) else value for key, value in row.items()}  # stripping leading/trailing spaces from values
                 self.cur.execute(f"INSERT INTO {table_name} VALUES ({', '.join('?' * len(headers))})", list(row.values()))
         self.conn.commit()
+        
+    def create_country_table_from_csv(self, csv_file, table_name):
+        with open(csv_file, 'r') as f:
+            dr = csv.DictReader(f)
+            headers = dr.fieldnames
+            headers = [header.replace(" ", "_").replace("(", "").replace(")", "") for header in headers]
+            headers_with_types = [header + ' TEXT' for header in headers] 
+
+            self.cur.execute(f"DROP TABLE IF EXISTS {table_name}")
+            self.cur.execute(f"CREATE TABLE {table_name} (city TEXT, country TEXT, x54 REAL)")
+
+            inserted_countries = set()  # store inserted countries
+            for row in dr:
+                row = {key: value.strip() if isinstance(value, str) else value for key, value in row.items()}
+                country = row['country']
+                if country not in inserted_countries:
+                    self.cur.execute(f"INSERT INTO {table_name} VALUES (?, ?, ?)", (row['city'], row['country'], row['x54']))
+                    inserted_countries.add(country)  # add the country to the set
+
+            self.conn.commit()
 
 
 
@@ -155,6 +175,12 @@ if __name__ == "__main__":
     data = db_manager.select_data('obesity3', 'Obesity', "Country = 'Afghanistan'")
     for row in data:
         print('Obesity Percentage:', row[0])
+        
+    db_manager.create_country_table_from_csv('cost-of-living_v2.csv', 'salary')
+
+    # Test
+    data = db_manager.select_data('salary', '*', "country = 'South Korea'")
+    print(data)
     
     
 
