@@ -105,11 +105,13 @@ if __name__ == "__main__":
     
     #db_manager.remove_column('my_table', 'Population_Density_PerSqKm')
     
-    data = db_manager.select_data('my_table', 'Population_Density_PerSqKm', "Country = 'Indonesia'")
+    data = db_manager.select_data('my_table', 'Population', "Country = 'Indonesia'")
     print('Updated Population Density for Indonesia:', data)
     
     db_manager.create_table_from_csv('population_by_country_2020.csv', 'population')
     print(db_manager.select_data('population', '*', "Country = 'China'"))
+    print(db_manager.select_data('population', 'Population', "Country = 'Indonesia'"))
+    
     
     
 
