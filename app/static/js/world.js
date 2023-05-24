@@ -102,9 +102,12 @@ function country_color(country_name, data) {
     data = JSON.parse(data);
     max = data[2];
     values = data[1];
-    current_dataset = data[3];
-    country_values = values;
-    value = values[country_name];
+    if (data != false) {
+      current_dataset = data[3];
+      country_values = values;
+    }
+    sanitized_country_name = country_name.replaceAll("_","").toLowerCase();
+    value = values[sanitized_country_name];
     console.log(value);
     if (typeof value == "string") {
       value = parseFloat(value);
@@ -232,18 +235,22 @@ var save_current = function(e) {
     country_true_name = would_be_country_true_name;
     let selected_country_display = document.getElementById("selected_country");
     selected_country_display.innerHTML = country_true_name;
-    data_display.innerHTML = "No Data Available";
+    data_display.innerHTML = "Select a country to view its data";
     country_d3.style("fill", country_color(country_name, [false]));
     return false;
   }
   country_hold = true;
   //Show data
   try {
-    data_to_be_dsiplayed = country_values[country_name];
-    if (data_to_be_dsiplayed == undefined) {
-      data_to_be_dsiplayed = "No Data Available For " + current_dataset;
+    console.log(country_values);
+    sanitized_country_name = country_name.replaceAll("_","").toLowerCase();
+    console.log(sanitized_country_name);
+    data_to_be_displayed = country_values[sanitized_country_name];
+    if (data_to_be_displayed == undefined) {
+      data_display.innerHTML = "No Data Available For " + current_dataset;
+    } else {
+      data_display.innerHTML = current_dataset + ": " + data_to_be_displayed;
     }
-    data_display.innerHTML = current_dataset + ": " + data_to_be_dsiplayed;
   } catch (error) {
     console.log(error);
     data_display.innerHTML = "No Data Available";

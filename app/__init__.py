@@ -71,8 +71,8 @@ def load_dataset(dataset):
 def handleFormSubmission(dataset):
     data_selected = dataset
     db_manager = DatabaseManager('my_database.db')
-    data_by_country = db_manager.select_all_data('my_table', 'country,' +data_selected)
-    all_data = db_manager.select_all_data('my_table', data_selected)
+    data_by_country = db_manager.select_all_data(data_selected, 'country,' +data_selected)
+    all_data = db_manager.select_all_data(data_selected, data_selected)
     db_manager.close()
     max = 0
     for data in all_data :
@@ -83,12 +83,13 @@ def handleFormSubmission(dataset):
             return [False]
         if value > max :
             max = value
+    sanitized_data = [];
     for data in data_by_country :
         original_country_name = data[0]
         country_name = original_country_name.replace(" ", "").lower()
-        data = (country_name, data[1])
-        print(country_name)
-    return [True, dict(data_by_country), max, data_selected]
+        sanitized_data.append((country_name, data[1]));
+    print(sanitized_data)
+    return [True, dict(sanitized_data), max, data_selected]
 
 if __name__ == "__main__":
     app.debug = True

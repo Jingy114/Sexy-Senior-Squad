@@ -190,5 +190,6 @@ HenryB 2023-5-23
 - sanitizes country names with whitespace and capitalization
 - displays data based on button pressed
 - selected country window also displays data
+- buggggggg fixes
 - ...
 ==============================================================
