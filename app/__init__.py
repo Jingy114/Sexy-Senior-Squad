@@ -97,8 +97,11 @@ def handleFormSubmission(dataset):
     return [True, dict(sanitized_data), max, data_selected]
 
 
-@app.route('/large-form-submit/<dataset>/<dataset2>', methods=['GET', 'POST'])
-def handleLargeFormSubmission(dataset, dataset2):
+@app.route('/large-form-submit', methods=['GET', 'POST'])
+def handleLargeFormSubmission():
+    dataset = 'population'
+    dataset2 = 'population'
+    # operation = ???
     db_manager = DatabaseManager('my_database.db')
     data_by_country = db_manager.select_all_data(dataset, 'country,' + dataset)
     data_by_country2 = db_manager.select_all_data(
@@ -130,7 +133,7 @@ def handleLargeFormSubmission(dataset, dataset2):
             return [False]
         new_value = value*value2
         if new_value > max :
-            max = value
+            max = new_value
         complete_sanitized_data.append((country_name, new_value))
     return [True, dict(complete_sanitized_data), max]
 
