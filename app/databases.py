@@ -167,12 +167,12 @@ if __name__ == "__main__":
     
     db_manager.create_table_from_csv('obesity-cleaned.csv', 'obesity1')  
     db_manager.select_data_by_year('obesity1', 'obesity2', '2016')
-    db_manager.select_data_by_sex('obesity2', 'obesity3', 'Both sexes')
+    db_manager.select_data_by_sex('obesity2', 'obesity', 'Both sexes')
     #print(db_manager.select_data('obesity1', '*', "Country = 'Afghanistan'")) 
     #print(db_manager.select_data('obesity2', '*', "Country = 'Afghanistan'")) 
     #print(db_manager.select_data('obesity3', '*', "Country = 'Afghanistan'"))  
-    print(db_manager.select_data('obesity3', 'obesity', "Country = 'Afghanistan'"))   
-    data = db_manager.select_data('obesity3', 'obesity', "Country = 'Afghanistan'")
+    print(db_manager.select_data('obesity', 'obesity', "Country = 'Afghanistan'"))   
+    data = db_manager.select_data('obesity', 'obesity', "Country = 'Afghanistan'")
     for row in data:
         print('Obesity Percentage:', row[0])
         
@@ -182,8 +182,8 @@ if __name__ == "__main__":
     data = db_manager.select_data('salary', '*', "country = 'South Korea'")
     print(data)
     
-    #data_selected = 'population'
-    #db_manager.select_all_data(data_selected, 'country, ' + data_selected)
+    data_selected = 'population'
+    #print(db_manager.select_all_data(data_selected, 'country, ' + data_selected))
     
     
 
