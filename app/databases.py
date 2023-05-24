@@ -16,13 +16,13 @@ class DatabaseManager:
     def __init__(self, db_name):
         self.conn = sqlite3.connect(db_name)
         self.cur = self.conn.cursor()
-
+    
     def create_table_from_csv(self, csv_file, table_name):
         with open(csv_file, 'r') as f:
             dr = csv.DictReader(f)
             headers = dr.fieldnames
             # replace special characters or spaces in header names with underscore
-            headers = ["".join([c if c.isalnum() else '_' for c in header]) for header in headers]
+            headers = ["".join([c if c.isalnum() else '_' for c in header.strip()]) for header in headers]
             # append an underscore to headers that are SQLite keywords
             sqlite_keywords = ['ABORT', 'ACTION', 'ADD', 'AFTER', 'ALL', 'ALTER', 'ANALYZE', 'AND', 'AS', 'ASC',
                             'ATTACH', 'AUTOINCREMENT', 'BEFORE', 'BEGIN', 'BETWEEN', 'BY', 'CASCADE', 'CASE', 'CAST',
@@ -39,24 +39,32 @@ class DatabaseManager:
                             'TEMPORARY', 'THEN', 'TO', 'TRANSACTION', 'TRIGGER', 'UNION', 'UNIQUE', 'UPDATE', 'USING',
                             'VACUUM', 'VALUES', 'VIEW', 'VIRTUAL', 'WHEN', 'WHERE', 'WITH', 'WITHOUT']
             headers = [header if header.upper() not in sqlite_keywords else header + "_" for header in headers]
-            
+
+            headers_with_types = [header + ' TEXT' for header in headers]  # assuming all columns are of type TEXT
+
             self.cur.execute(f"DROP TABLE IF EXISTS {table_name}")
-            self.cur.execute(f"CREATE TABLE {table_name} ({', '.join(headers)})")
+            self.cur.execute(f"CREATE TABLE {table_name} ({', '.join(headers_with_types)})")
             for row in dr:
+                row = {key: value.strip() if isinstance(value, str) else value for key, value in row.items()}  # stripping leading/trailing spaces from values
                 self.cur.execute(f"INSERT INTO {table_name} VALUES ({', '.join('?' * len(headers))})", list(row.values()))
         self.conn.commit()
 
+
+
+
     def select_data(self, table_name, column_name, condition):
-        self.cur.execute(f"SELECT {column_name} FROM {table_name} WHERE {condition}")
+        self.cur.execute(f"SELECT \"{column_name}\" FROM {table_name} WHERE {condition}")
         return self.cur.fetchall()
 
+
     def select_all_data(self, table_name, column_name):
-        self.cur.execute(f"SELECT {column_name} FROM {table_name}")
+        self.cur.execute(f"SELECT \"{column_name}\" FROM {table_name}")
         return self.cur.fetchall()
 
     def update_data(self, table_name, column_name, new_value, condition):
-        self.cur.execute(f"UPDATE {table_name} SET {column_name} = ? WHERE {condition}", (new_value,))
+        self.cur.execute(f"UPDATE {table_name} SET \"{column_name}\" = ? WHERE {condition}", (new_value,))
         self.conn.commit()
+
     
     def remove_column(self, table_name, column_name):
         self.cur.execute(f"PRAGMA table_info({table_name})")
@@ -70,6 +78,20 @@ class DatabaseManager:
             self.conn.commit()
         else:
             print("Column not found in the table")
+            
+    def select_data_by_year(self, table_name, new_table_name, year):
+        self.cur.execute(f"DROP TABLE IF EXISTS {new_table_name}")
+        self.cur.execute(f"CREATE TABLE {new_table_name} AS SELECT * FROM {table_name} WHERE Year = {year}")
+        self.conn.commit()
+
+    def select_data_by_sex(self, table_name, new_table_name, sex):
+        self.cur.execute(f"DROP TABLE IF EXISTS {new_table_name}")
+        self.cur.execute(f"CREATE TABLE {new_table_name} AS SELECT * FROM {table_name} WHERE Sex = '{sex}'")
+        self.conn.commit()
+        
+
+
+
 
 
     def close(self):
@@ -112,6 +134,17 @@ if __name__ == "__main__":
     print(db_manager.select_data('population', '*', "Country = 'China'"))
     print(db_manager.select_data('population', 'Population', "Country = 'Indonesia'"))
     
+    db_manager.create_table_from_csv('obesity-cleaned.csv', 'obesity1')  
+    db_manager.select_data_by_year('obesity1', 'obesity2', '2016')
+    db_manager.select_data_by_sex('obesity2', 'obesity3', 'Both sexes')
+    #print(db_manager.select_data('obesity1', '*', "Country = 'Afghanistan'")) 
+    #print(db_manager.select_data('obesity2', '*', "Country = 'Afghanistan'")) 
+    #print(db_manager.select_data('obesity3', '*', "Country = 'Afghanistan'"))  
+    print(db_manager.select_data('obesity3', 'Obesity (%)', "Country = 'Afghanistan'"))   
+    data = db_manager.select_data('obesity3', 'Obesity (%)', "Country = 'Afghanistan'")
+    for row in data:
+        print('Obesity Percentage:', row[0])
+
     
     
 
