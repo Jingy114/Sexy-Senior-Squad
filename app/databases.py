@@ -52,9 +52,20 @@ class DatabaseManager:
 
 
 
-    def select_data(self, table_name, column_name, condition):
-        self.cur.execute(f"SELECT \"{column_name}\" FROM {table_name} WHERE {condition}")
+    def select_data(self, table_name, column_name, condition=None):
+        if column_name == '*':
+            if condition:
+                self.cur.execute(f"SELECT * FROM {table_name} WHERE {condition}")
+            else:
+                self.cur.execute(f"SELECT * FROM {table_name}")
+        else:
+            if condition:
+                self.cur.execute(f"SELECT \"{column_name}\" FROM {table_name} WHERE {condition}")
+            else:
+                self.cur.execute(f"SELECT \"{column_name}\" FROM {table_name}")
         return self.cur.fetchall()
+
+
 
 
     def select_all_data(self, table_name, column_name):
@@ -140,11 +151,10 @@ if __name__ == "__main__":
     #print(db_manager.select_data('obesity1', '*', "Country = 'Afghanistan'")) 
     #print(db_manager.select_data('obesity2', '*', "Country = 'Afghanistan'")) 
     #print(db_manager.select_data('obesity3', '*', "Country = 'Afghanistan'"))  
-    print(db_manager.select_data('obesity3', 'Obesity (%)', "Country = 'Afghanistan'"))   
-    data = db_manager.select_data('obesity3', 'Obesity (%)', "Country = 'Afghanistan'")
+    print(db_manager.select_data('obesity3', 'Obesity', "Country = 'Afghanistan'"))   
+    data = db_manager.select_data('obesity3', 'Obesity', "Country = 'Afghanistan'")
     for row in data:
         print('Obesity Percentage:', row[0])
-
     
     
 
