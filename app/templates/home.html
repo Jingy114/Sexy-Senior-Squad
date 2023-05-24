@@ -62,10 +62,10 @@
 
       <br>
       <!-- Function Selector -->
-      <form action="/large-form-submit" onsubmit="process_data(this); return false;" method='post'>
+      <form action="/large-form-submit" onsubmit="process_data(this); return false;" method='post' id='form_oper'>
         <div class="row">
           <div class="col">
-            <select id="dataset_selector_1" class="form-select">
+            <select id="dataset_selector_1" class="form-select" name="one">
               <!-- JS Builds Options Here -->
             </select>
           </div>
@@ -78,7 +78,7 @@
             </center>
           </div>
           <div class="col">
-            <select id="dataset_selector_2" class="form-select">
+            <select id="dataset_selector_2" class="form-select" name="two">
               <!-- JS Builds Options Here -->
             </select>
           </div>

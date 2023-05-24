@@ -262,6 +262,9 @@ var save_current = function(e) {
 function process_data(formElement) {
   // console.log('test...');
   var xhttp = new XMLHttpRequest();
+  let form = document.getElementById('form_oper');
+  let dataset1 = form.elements.one.value;
+  let dataset2 = form.elements.two.value;
   xhttp.onreadystatechange = function() {
     if (this.readyState === 4) {
       // console.log('test!');
@@ -271,7 +274,7 @@ function process_data(formElement) {
   };
   xhttp.open(formElement.method, formElement.action, true);
   var data_form = new FormData(formElement);
-  xhttp.send(data_form)
+  xhttp.send(encodeURIComponent(dataset1));
   return false;
 }
 

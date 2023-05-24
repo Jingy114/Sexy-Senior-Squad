@@ -101,6 +101,7 @@ def handleFormSubmission(dataset):
 def handleLargeFormSubmission():
     dataset = 'population'
     dataset2 = 'population'
+    print(request.form.get('dataset1'))
     # operation = ???
     db_manager = DatabaseManager('my_database.db')
     data_by_country = db_manager.select_all_data(dataset, 'country,' + dataset)
