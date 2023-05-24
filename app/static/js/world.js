@@ -18,7 +18,7 @@ let would_be_country_true_name = "N/A";
 let country_hold = false;
 
 let operation = "Multiplied By";
-let datasets = ["population", "area_SqKm", "Population_Density_PerSqKm"];
+let datasets = ["population", "obesity", "salary"];
 let current_dataset = "";
 
 let country_values;
