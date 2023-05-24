@@ -75,10 +75,10 @@ def load_dataset(dataset):
 def handleFormSubmission(dataset):
     data_selected = dataset
     db_manager = DatabaseManager('my_database.db')
-    # data_by_country = db_manager.select_all_data(data_selected, 'country, ' + data_selected)
-    # all_data = db_manager.select_all_data(data_selected, data_selected)
-    data_by_country = db_manager.select_all_data('my_table', 'country, ' + data_selected)
-    all_data = db_manager.select_all_data('my_table', data_selected)
+    data_by_country = db_manager.select_all_data(data_selected, 'country, ' + data_selected)
+    all_data = db_manager.select_all_data(data_selected, data_selected)
+    # data_by_country = db_manager.select_all_data('my_table', 'country, ' + data_selected)
+    # all_data = db_manager.select_all_data('my_table', data_selected)
     print(data_by_country)
     db_manager.close()
     max = 0

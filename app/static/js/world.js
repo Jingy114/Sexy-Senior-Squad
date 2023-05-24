@@ -274,9 +274,11 @@ function process_data(formElement) {
   };
   xhttp.open(formElement.method, formElement.action, true);
   var data_form = new FormData(formElement);
-  xhttp.send(data_form);//encodeURIComponent(dataset1));
+  xhttp.send(data_form);// + encodeURIComponent(dataset1));
   return false;
 }
+
+// function process_data_2?
 
 
 //load_screen();

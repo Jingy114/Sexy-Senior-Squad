@@ -184,12 +184,11 @@ HenryB 2023-5-23 17:38
 database and used in the js file
 ==============================================================
 
-HenryB 2023-5-23
+HenryB 2023-5-24 1:30
 --------------------------------------------------------------
 - globe displays data!
 - sanitizes country names with whitespace and capitalization
 - displays data based on button pressed
 - selected country window also displays data
 - buggggggg fixes
-- ...
 ==============================================================
