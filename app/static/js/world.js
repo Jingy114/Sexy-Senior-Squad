@@ -19,13 +19,13 @@ let country_hold = false;
 
 let operation = "Multiplied By";
 let datasets = ["population", "area_SqKm", "Population_Density_PerSqKm"];
+let current_dataset = "";
+
+let country_values;
 
 //let data = [];
 
 function setup(info) {
-  //Initilaize Selction List
-  // build_list();
-
   //Get data from callback 'get_data()'
   let world_data = info;
 
@@ -74,8 +74,6 @@ function setup(info) {
   //Initialize Colors
   update_colors([false]); // data elements
 
-  //rotate_to(x,y,z);
-
   //Button rotate functions
   document.getElementById('rotate_left').addEventListener("click", rotate_left);
   document.getElementById('rotate_right').addEventListener("click", rotate_right);
@@ -83,28 +81,19 @@ function setup(info) {
   document.getElementById('rotate_down').addEventListener("click", rotate_down);
 
   //Mouse rotate stuff
-  let moveable_globe = document.getElementById('map');
+  //let moveable_globe = document.getElementById('map');
   //moveable_globe.addEventListener("mousemove", rotate_to); //+mousedown + mousemove/mouseover?
   //Currently only triggers on the borders themselves
 }
 
 //Colors each country according to 'country_color()'
 function update_colors(data) {
-  // if (data[0]) {
     for (let i = 0; i < country_list.length; i++) {
       let country_name = country_list[i];
       let country_d3 = d3.select('#globe g.map')
         .select('#' + country_name)
         .style("fill", country_color(country_name, data));
     }
-  // } else {
-  //   for (let i = 0; i < country_list.length; i++) {
-  //     let country_name = country_list[i];
-  //     let country_d3 = d3.select('#globe g.map')
-  //       .select('#' + country_name)
-  //       .style("fill", "red");
-  //   }
-  // }
 }
 
 function country_color(country_name, data) {
@@ -113,6 +102,8 @@ function country_color(country_name, data) {
     data = JSON.parse(data);
     max = data[2];
     values = data[1];
+    current_dataset = data[3];
+    country_values = values;
     value = values[country_name];
     console.log(value);
     if (typeof value == "string") {
@@ -232,22 +223,31 @@ var save_current = function(e) {
   if (country_true_name == 'N/A') {
     return false;
   }
-  let hold_indication = document.getElementById('selected_hold');
+  let data_display = document.getElementById('data_display');
   let country_name = country_true_name.replaceAll(" ", "_");
   let country_d3 = d3.select('#globe g.map')
     .select('#' + country_name);
   if (country_hold == true) {
     country_hold = false;
-    hold_indication.innerHTML = "false";
     country_true_name = would_be_country_true_name;
     let selected_country_display = document.getElementById("selected_country");
     selected_country_display.innerHTML = country_true_name;
-    country_d3.style("fill", country_color(country_name, []));
+    data_display.innerHTML = "No Data Available";
+    country_d3.style("fill", country_color(country_name, [false]));
     return false;
   }
   country_hold = true;
   //Show data
-  hold_indication.innerHTML = "true";
+  try {
+    data_to_be_dsiplayed = country_values[country_name];
+    if (data_to_be_dsiplayed == undefined) {
+      data_to_be_dsiplayed = "No Data Available For " + current_dataset;
+    }
+    data_display.innerHTML = current_dataset + ": " + data_to_be_dsiplayed;
+  } catch (error) {
+    console.log(error);
+    data_display.innerHTML = "No Data Available";
+  }
   country_d3.style("fill", "#257AFD");
   return true;
 }

@@ -88,7 +88,7 @@ def handleFormSubmission(dataset):
         country_name = original_country_name.replace(" ", "").lower()
         data = (country_name, data[1])
         print(country_name)
-    return [True, dict(data_by_country), max]
+    return [True, dict(data_by_country), max, data_selected]
 
 if __name__ == "__main__":
     app.debug = True
