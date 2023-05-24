@@ -1,6 +1,6 @@
 import csv
 import sqlite3
-import pandas as pd
+#import pandas as pd
 
 # remember to pip install pandas openpyxl
 
@@ -21,6 +21,25 @@ class DatabaseManager:
         with open(csv_file, 'r') as f:
             dr = csv.DictReader(f)
             headers = dr.fieldnames
+            # replace special characters or spaces in header names with underscore
+            headers = ["".join([c if c.isalnum() else '_' for c in header]) for header in headers]
+            # append an underscore to headers that are SQLite keywords
+            sqlite_keywords = ['ABORT', 'ACTION', 'ADD', 'AFTER', 'ALL', 'ALTER', 'ANALYZE', 'AND', 'AS', 'ASC',
+                            'ATTACH', 'AUTOINCREMENT', 'BEFORE', 'BEGIN', 'BETWEEN', 'BY', 'CASCADE', 'CASE', 'CAST',
+                            'CHECK', 'COLLATE', 'COLUMN', 'COMMIT', 'CONFLICT', 'CONSTRAINT', 'CREATE', 'CROSS',
+                            'CURRENT_DATE', 'CURRENT_TIME', 'CURRENT_TIMESTAMP', 'DATABASE', 'DEFAULT', 'DEFERRABLE',
+                            'DEFERRED', 'DELETE', 'DESC', 'DETACH', 'DISTINCT', 'DROP', 'EACH', 'ELSE', 'END', 'ESCAPE',
+                            'EXCEPT', 'EXCLUSIVE', 'EXISTS', 'EXPLAIN', 'FAIL', 'FOR', 'FOREIGN', 'FROM', 'FULL',
+                            'GLOB', 'GROUP', 'HAVING', 'IF', 'IGNORE', 'IMMEDIATE', 'IN', 'INDEX', 'INDEXED',
+                            'INITIALLY', 'INNER', 'INSERT', 'INSTEAD', 'INTERSECT', 'INTO', 'IS', 'ISNULL', 'JOIN',
+                            'KEY', 'LEFT', 'LIKE', 'LIMIT', 'MATCH', 'NATURAL', 'NO', 'NOT', 'NOTNULL', 'NULL', 'OF',
+                            'OFFSET', 'ON', 'OR', 'ORDER', 'OUTER', 'PLAN', 'PRAGMA', 'PRIMARY', 'QUERY', 'RAISE',
+                            'RECURSIVE', 'REFERENCES', 'REGEXP', 'REINDEX', 'RELEASE', 'RENAME', 'REPLACE',
+                            'RESTRICT', 'RIGHT', 'ROLLBACK', 'ROW', 'SAVEPOINT', 'SELECT', 'SET', 'TABLE', 'TEMP',
+                            'TEMPORARY', 'THEN', 'TO', 'TRANSACTION', 'TRIGGER', 'UNION', 'UNIQUE', 'UPDATE', 'USING',
+                            'VACUUM', 'VALUES', 'VIEW', 'VIRTUAL', 'WHEN', 'WHERE', 'WITH', 'WITHOUT']
+            headers = [header if header.upper() not in sqlite_keywords else header + "_" for header in headers]
+            
             self.cur.execute(f"DROP TABLE IF EXISTS {table_name}")
             self.cur.execute(f"CREATE TABLE {table_name} ({', '.join(headers)})")
             for row in dr:
@@ -84,6 +103,10 @@ if __name__ == "__main__":
     
     data = db_manager.select_data('my_table', 'Population_Density_PerSqKm', "Country = 'Indonesia'")
     print('Updated Population Density for Indonesia:', data)
+    
+    db_manager.create_table_from_csv('population_by_country_2020.csv', 'population')
+    print(db_manager.select_data('population', '*', "Country = 'China'"))
+    
     
 
     db_manager.close()
