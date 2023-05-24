@@ -183,3 +183,11 @@ HenryB 2023-5-23 17:38
 - Fixed bug so now data can be successfully taken from the
 database and used in the js file
 ==============================================================
+
+HenryB 2023-5-23
+--------------------------------------------------------------
+- globe displays data!
+- sanitizes country names with whitespace and capitalization
+- displays data based on button pressed
+- ...
+==============================================================

@@ -18,7 +18,7 @@ let would_be_country_true_name = "N/A";
 let country_hold = false;
 
 let operation = "Multiplied By";
-let datasets = ["population", "Data d", "Data f"];
+let datasets = ["population", "area_SqKm", "Population_Density_PerSqKm"];
 
 //let data = [];
 
@@ -141,7 +141,7 @@ async function build_lists() {
     new_list_elem.className = "list-group-item list-group-item-action";
     // HAVE TO TURN THESE TO FORMS
     let new_list_elem_form = document.createElement('form');
-    new_list_elem_form.action = "/form-submit";
+    new_list_elem_form.action = "/form-submit/"+dataset;
     new_list_elem_form.setAttribute("onsubmit", "process_data(this); return false;");
     let new_list_elem_input = document.createElement('input');
     new_list_elem_input.type = "submit";

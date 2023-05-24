@@ -67,12 +67,13 @@ def load_dataset(dataset):
     print(request.form[""])
     return redirect("/testing")#, dataset=json_dataset)
 
-@app.route('/form-submit', methods=['GET', 'POST'])
-def handleFormSubmission():
-    data_selected = 'population'
+@app.route('/form-submit/<dataset>', methods=['GET', 'POST'])
+def handleFormSubmission(dataset):
+    data_selected = dataset
     db_manager = DatabaseManager('my_database.db')
     data_by_country = db_manager.select_all_data('my_table', 'country,' +data_selected)
     all_data = db_manager.select_all_data('my_table', data_selected)
+    db_manager.close()
     max = 0
     for data in all_data :
         value = data[0]
@@ -82,8 +83,11 @@ def handleFormSubmission():
             return [False]
         if value > max :
             max = value
-    db_manager.close()
-    print(data_by_country)
+    for data in data_by_country :
+        original_country_name = data[0]
+        country_name = original_country_name.replace(" ", "").lower()
+        data = (country_name, data[1])
+        print(country_name)
     return [True, dict(data_by_country), max]
 
 if __name__ == "__main__":
