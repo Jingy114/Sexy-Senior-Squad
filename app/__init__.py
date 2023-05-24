@@ -69,10 +69,21 @@ def load_dataset(dataset):
 
 @app.route('/form-submit', methods=['GET', 'POST'])
 def handleFormSubmission():
-    # db_manager = DatabaseManager('my_database.db')
-    # data = db_manager.select_data('my_table', '*', "country = 'USA'")
-    # db_manager.close()
-    return 'data'
+    db_manager = DatabaseManager('my_database.db')
+    data_by_country = db_manager.select_all_data('my_table', 'country, population')
+    all_data = db_manager.select_all_data('my_table', 'population')
+    max = 0
+    for data in all_data :
+        value = data[0]
+        if isinstance(value, str) :
+            value = float(value)
+        elif not isinstance(value, float) :
+            return [False]
+        if value > max :
+            max = value
+    db_manager.close()
+    # print(dict(data_by_country))
+    return [True, dict(data_by_country), max]
 
 if __name__ == "__main__":
     app.debug = True
