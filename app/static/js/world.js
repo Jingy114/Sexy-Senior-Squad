@@ -175,9 +175,9 @@ function select_function(chosen_operation) {
   operation = chosen_operation;
 }
 
-function run_data_function(form) {
-  console.log("test");
-}
+// function run_data_function(form) {
+//   console.log("test");
+// }
 
 let sens = 45;
 

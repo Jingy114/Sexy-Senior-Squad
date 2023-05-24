@@ -88,8 +88,31 @@ def handleFormSubmission(dataset):
         original_country_name = data[0]
         country_name = original_country_name.replace(" ", "").lower()
         sanitized_data.append((country_name, data[1]));
-    print(sanitized_data)
+    # print(sanitized_data)
     return [True, dict(sanitized_data), max, data_selected]
+
+@app.route('/large-form-submit/<dataset>/<dataset2>', methods=['GET', 'POST'])
+def handleLargeFormSubmission(dataset, dataset2):
+    db_manager = DatabaseManager('my_database.db')
+    data_by_country = db_manager.select_all_data(dataset, 'country,' +dataset)
+    data_by_country2 = db_manager.select_all_data(dataset2, 'country,' +dataset2)
+    db_manager.close()
+    # max = 0
+    # for data in all_data :
+    #     value = data[0]
+    #     if isinstance(value, str) :
+    #         value = float(value)
+    #     elif not isinstance(value, float) :
+    #         return [False]
+    #     if value > max :
+    #         max = value
+    sanitized_data = [];
+    for data in data_by_country :
+        original_country_name = data[0]
+        country_name = original_country_name.replace(" ", "").lower()
+        sanitized_data.append((country_name, data[1]));
+    # print(sanitized_data)
+    return "yay"#[True, dict(sanitized_data), max, data_selected]
 
 if __name__ == "__main__":
     app.debug = True

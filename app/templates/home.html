@@ -62,7 +62,7 @@
 
       <br>
       <!-- Function Selector -->
-      <form method='post'>
+      <form action="/large-form-submit" onsubmit="process_data(this); return false;" method='post'>
         <div class="row">
           <div class="col">
             <select id="dataset_selector_1" class="form-select">
@@ -83,7 +83,7 @@
             </select>
           </div>
           <center>
-            <button type="submit" class="btn btn-secondary" onClick="run_data_function(this.form)"> Confirm </button>
+            <button type="submit" class="btn btn-secondary"> Confirm </button>
           </center>
         </div>
       </form>
