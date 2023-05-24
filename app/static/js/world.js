@@ -18,7 +18,7 @@ let would_be_country_true_name = "N/A";
 let country_hold = false;
 
 let operation = "Multiplied By";
-let datasets = ["Data c", "Data d", "Data f"];
+let datasets = ["population", "Data d", "Data f"];
 
 //let data = [];
 
@@ -108,22 +108,23 @@ function update_colors(data) {
 }
 
 function country_color(country_name, data) {
-  console.log(data);
+  // console.log(data);
   try {
     data = JSON.parse(data);
     max = data[2];
     values = data[1];
-    // values = values.map(i => [i[0], i[1]]);
     value = values[country_name];
     console.log(value);
     if (typeof value == "string") {
-      value = int(value);
+      value = parseFloat(value);
     }
-
     value *= 255/max;
-    return "rgba("+ value +",0,0,1)";
+    g_value = 255-value
+    return "rgba("+ value +","+ g_value +",0,1)";
   } catch (error){
-    console.log(error);
+    if (data != false) {
+      console.log(error);
+    }
     return "grey";
   }
 }
