@@ -171,8 +171,8 @@ if __name__ == "__main__":
     #print(db_manager.select_data('obesity1', '*', "Country = 'Afghanistan'")) 
     #print(db_manager.select_data('obesity2', '*', "Country = 'Afghanistan'")) 
     #print(db_manager.select_data('obesity3', '*', "Country = 'Afghanistan'"))  
-    print(db_manager.select_data('obesity3', 'Obesity', "Country = 'Afghanistan'"))   
-    data = db_manager.select_data('obesity3', 'Obesity', "Country = 'Afghanistan'")
+    print(db_manager.select_data('obesity3', 'obesity', "Country = 'Afghanistan'"))   
+    data = db_manager.select_data('obesity3', 'obesity', "Country = 'Afghanistan'")
     for row in data:
         print('Obesity Percentage:', row[0])
         
@@ -181,6 +181,9 @@ if __name__ == "__main__":
     # Test
     data = db_manager.select_data('salary', '*', "country = 'South Korea'")
     print(data)
+    
+    #data_selected = 'population'
+    #db_manager.select_all_data(data_selected, 'country, ' + data_selected)
     
     
 
