@@ -72,7 +72,7 @@ function setup(info) {
   loading_screen.remove();
 
   //Initialize Colors
-  update_colors([]); // data elements
+  update_colors([false]); // data elements
 
   //rotate_to(x,y,z);
 
@@ -90,21 +90,42 @@ function setup(info) {
 
 //Colors each country according to 'country_color()'
 function update_colors(data) {
-  console.log(data);
-  for (let i = 0; i < country_list.length; i++) {
-    let country_name = country_list[i];
-    let country_d3 = d3.select('#globe g.map')
-      .select('#' + country_name)
-      .style("fill", country_color(country_name, data));
-  }
+  // if (data[0]) {
+    for (let i = 0; i < country_list.length; i++) {
+      let country_name = country_list[i];
+      let country_d3 = d3.select('#globe g.map')
+        .select('#' + country_name)
+        .style("fill", country_color(country_name, data));
+    }
+  // } else {
+  //   for (let i = 0; i < country_list.length; i++) {
+  //     let country_name = country_list[i];
+  //     let country_d3 = d3.select('#globe g.map')
+  //       .select('#' + country_name)
+  //       .style("fill", "red");
+  //   }
+  // }
 }
 
 function country_color(country_name, data) {
-  //console.log(select_data("test.db", "*", "USA"))
-  if (data.length != 0) {
-    return 'green';
+  console.log(data);
+  try {
+    data = JSON.parse(data);
+    max = data[2];
+    values = data[1];
+    // values = values.map(i => [i[0], i[1]]);
+    value = values[country_name];
+    console.log(value);
+    if (typeof value == "string") {
+      value = int(value);
+    }
+
+    value *= 255/max;
+    return "rgba("+ value +",0,0,1)";
+  } catch (error){
+    console.log(error);
+    return "grey";
   }
-  return 'red';
 }
 
 //Builds selection lists based on 'databases'

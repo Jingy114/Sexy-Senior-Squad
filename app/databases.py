@@ -31,6 +31,10 @@ class DatabaseManager:
         self.cur.execute(f"SELECT {column_name} FROM {table_name} WHERE {condition}")
         return self.cur.fetchall()
 
+    def select_all_data(self, table_name, column_name):
+        self.cur.execute(f"SELECT {column_name} FROM {table_name}")
+        return self.cur.fetchall()
+
     def update_data(self, table_name, column_name, new_value, condition):
         self.cur.execute(f"UPDATE {table_name} SET {column_name} = ? WHERE {condition}", (new_value,))
         self.conn.commit()
