@@ -201,23 +201,23 @@ if __name__ == "__main__":
     data = db_manager.select_data('my_table', 'Population', "Country = 'Indonesia'")
     print('Updated Population Density for Indonesia:', data)
     
-    db_manager.create_population_table_from_csv('population_by_country_2020.csv', 'population')
-    print(db_manager.select_data('population', '*', "Country = 'China'"))
-    print(db_manager.select_data('population', 'Population', "Country = 'Indonesia'"))
+    db_manager.create_population_table_from_csv('population_by_country_2020.csv', 'Population')
+    print(db_manager.select_data('Population', '*', "Country = 'China'"))
+    print(db_manager.select_data('Population', 'Population', "Country = 'Indonesia'"))
     
     
     db_manager.create_table_from_csv('obesity-cleaned.csv', 'obesity1')  
     db_manager.select_data_by_year('obesity1', 'obesity2', '2016')
-    db_manager.select_data_by_sex('obesity2', 'obesity', 'Both sexes')
+    db_manager.select_data_by_sex('obesity2', 'obesity3', 'Both sexes')
     #print(db_manager.select_data('obesity1', '*', "Country = 'Afghanistan'")) 
     #print(db_manager.select_data('obesity2', '*', "Country = 'Afghanistan'")) 
     #print(db_manager.select_data('obesity3', '*', "Country = 'Afghanistan'")) 
-    db_manager.remove_column('obesity', 'Year')
-    db_manager.remove_column('obesity', 'Rank')
-    db_manager.remove_column('obesity', 'Sex')
+    db_manager.remove_column('obesity3', 'Year')
+    db_manager.remove_column('obesity3', 'Rank')
+    db_manager.remove_column('obesity3', 'Sex')
     
-    print(db_manager.select_data('obesity', 'obesity', "Country = 'Afghanistan'"))   
-    data = db_manager.select_data('obesity', 'obesity', "Country = 'China'")
+    print(db_manager.select_data('obesity3', 'Obesity', "Country = 'Afghanistan'"))   
+    data = db_manager.select_data('obesity3', 'Obesity', "Country = 'China'")
     print(data)
         
     db_manager.create_country_table_from_csv('cost-of-living_v2.csv', 'salary')
@@ -226,19 +226,19 @@ if __name__ == "__main__":
     #data = db_manager.select_all_data('population', '*')
     #print(data)
     
-    data = db_manager.select_data('population', 'Population', "Country = 'China'")
+    data = db_manager.select_data('Population', 'Population', "Country = 'China'")
     print(data)
 
     #data = db_manager.select_all_data('obesity', '*')
     #print(data)
     
     # Cleanup obesity data and create a new table with the cleaned data
-    cleaned_data = db_manager.cleanup_obesity_data('obesity')
-    db_manager.create_cleaned_obesity_table('cleaned_obesity', cleaned_data)
+    cleaned_data = db_manager.cleanup_obesity_data('obesity3')
+    db_manager.create_cleaned_obesity_table('Obesity', cleaned_data)
 
     # Now you can test the cleaned table:
-    data = db_manager.select_all_data('cleaned_obesity', '*')
-    print(data)
+    #data = db_manager.select_all_data('Obesity', '*')
+    #print(data)
 
     
 
