@@ -270,6 +270,7 @@ function process_data(formElement) {
     if (this.readyState === 4) {
       // console.log('test!');
       let data = xhttp.responseText;
+      update_colors([false]);
       update_colors(data);
     }
   };
@@ -291,6 +292,7 @@ function process_large_data(formElement) {
     if (this.readyState === 4) {
       // console.log('test!');
       let data = xhttp.responseText;
+      update_colors([false]);
       update_colors(data);
     }
   };
