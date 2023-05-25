@@ -18,7 +18,7 @@ let would_be_country_true_name = "N/A";
 let country_hold = false;
 
 let operation = "Multiplied By";
-let datasets = ["population", "obesity", "salary"];
+let datasets = ["population", "cleaned_obesity", "salary"];
 let current_dataset = "";
 
 let country_values;
@@ -278,7 +278,31 @@ function process_data(formElement) {
   return false;
 }
 
-// function process_data_2?
+function process_large_data(formElement) {
+  // console.log('test...');
+  var xhttp = new XMLHttpRequest();
+  let form = document.getElementById('form_oper');
+  let dataset1_index = form.elements.one.value;
+  let dataset1 = datasets[dataset1_index];
+  let dataset2_index = form.elements.two.value;
+  let dataset2 = datasets[dataset2_index];
+  xhttp.onreadystatechange = function() {
+    if (this.readyState === 4) {
+      // console.log('test!');
+      let data = xhttp.responseText;
+      update_colors(data);
+    }
+  };
+  xhttp.open(formElement.method, formElement.action, true);
+  xhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  // var data_form = new FormData(formElement);
+  var data = new URLSearchParams();
+  data.append('dataset1', dataset1);
+  data.append('dataset2', dataset2);
+  xhttp.send(data);
+  return false;
+}
 
 
 //load_screen();

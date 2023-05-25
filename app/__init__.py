@@ -103,14 +103,13 @@ def handleFormSubmission(dataset):
 
 @app.route('/large-form-submit', methods=['GET', 'POST'])
 def handleLargeFormSubmission():
-    dataset = 'population'
-    dataset2 = 'population'
-    print(request.form.get('dataset1'))
+    dataset = request.form.get('dataset1')
+    dataset2 = request.form.get('dataset2')
     # operation = ???
     db_manager = DatabaseManager('my_database.db')
-    data_by_country = db_manager.select_all_data(dataset, 'country,' + dataset)
+    data_by_country = db_manager.select_all_data(dataset, '*')
     data_by_country2 = db_manager.select_all_data(
-        dataset2, 'country,' + dataset2)
+        dataset2, '*')
     db_manager.close()
     # print(data_by_country)
     sanitized_data = []
