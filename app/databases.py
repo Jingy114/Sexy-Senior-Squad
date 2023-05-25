@@ -57,14 +57,14 @@ class DatabaseManager:
             headers_with_types = [header + ' TEXT' for header in headers] 
 
             self.cur.execute(f"DROP TABLE IF EXISTS {table_name}")
-            self.cur.execute(f"CREATE TABLE {table_name} (city TEXT, country TEXT, salary REAL)")
+            self.cur.execute(f"CREATE TABLE {table_name} (City TEXT, Country TEXT, Salary REAL)")
 
             inserted_countries = set()  # store inserted countries
             for row in dr:
                 row = {key: value.strip() if isinstance(value, str) else value for key, value in row.items()}
-                country = row['country']
+                country = row['Country']
                 if country not in inserted_countries:
-                    self.cur.execute(f"INSERT INTO {table_name} VALUES (?, ?, ?)", (row['city'], row['country'], row['salary']))
+                    self.cur.execute(f"INSERT INTO {table_name} VALUES (?, ?, ?)", (row['City'], row['Country'], row['Salary']))
                     inserted_countries.add(country)  # add the country to the set
 
             self.conn.commit()
@@ -180,30 +180,30 @@ if __name__ == "__main__":
 
     # Test cases
     # Get population of China
-    data = db_manager.select_data('my_table', 'Population', "Country = 'China'")
-    print('Population of China:', data)
+    #data = db_manager.select_data('my_table', 'Population', "Country = 'China'")
+    #print('Population of China:', data)
 
     # Get all data for USA
-    data = db_manager.select_data('my_table', '*', "Country = 'USA'")
-    print('Data for USA:', data)
+    #data = db_manager.select_data('my_table', '*', "Country = 'USA'")
+    #print('Data for USA:', data)
 
     # Update population density of Indonesia
-    db_manager.update_data('my_table', 'Population_Density_PerSqKm', '150', "Country = 'Indonesia'")
+    #db_manager.update_data('my_table', 'Population_Density_PerSqKm', '150', "Country = 'Indonesia'")
 
     # Check if the update has been successful
-    data = db_manager.select_data('my_table', 'Population_Density_PerSqKm', "Country = 'Indonesia'")
-    print('Updated Population Density for Indonesia:', data)
+    #data = db_manager.select_data('my_table', 'Population_Density_PerSqKm', "Country = 'Indonesia'")
+    #print('Updated Population Density for Indonesia:', data)
     
     # Remove columns from the table, tested working
     
     #db_manager.remove_column('my_table', 'Population_Density_PerSqKm')
     
-    data = db_manager.select_data('my_table', 'Population', "Country = 'Indonesia'")
-    print('Updated Population Density for Indonesia:', data)
+    #data = db_manager.select_data('my_table', 'Population', "Country = 'Indonesia'")
+    #print('Updated Population Density for Indonesia:', data)
     
     db_manager.create_population_table_from_csv('population_by_country_2020.csv', 'Population')
-    print(db_manager.select_data('Population', '*', "Country = 'China'"))
-    print(db_manager.select_data('Population', 'Population', "Country = 'Indonesia'"))
+    #print(db_manager.select_data('Population', '*', "Country = 'China'"))
+    #print(db_manager.select_data('Population', 'Population', "Country = 'China'"))
     
     
     db_manager.create_table_from_csv('obesity-cleaned.csv', 'obesity1')  
@@ -216,20 +216,24 @@ if __name__ == "__main__":
     db_manager.remove_column('obesity3', 'Rank')
     db_manager.remove_column('obesity3', 'Sex')
     
-    print(db_manager.select_data('obesity3', 'Obesity', "Country = 'Afghanistan'"))   
-    data = db_manager.select_data('obesity3', 'Obesity', "Country = 'China'")
-    print(data)
+    #print(db_manager.select_data('obesity3', 'Obesity', "Country = 'Afghanistan'"))   
+    #data = db_manager.select_data('obesity3', 'Obesity', "Country = 'China'")
+    #print(data)
         
-    db_manager.create_country_table_from_csv('cost-of-living_v2.csv', 'salary')
+    db_manager.create_country_table_from_csv('cost-of-living_v2.csv', 'Salary')
+    db_manager.remove_column('Salary', 'City')
+    
+    data = db_manager.select_data('Salary', '*', "Country = 'China'")
+    print(data)
     
     #prints all data from the table
     #data = db_manager.select_all_data('population', '*')
     #print(data)
     
-    data = db_manager.select_data('Population', 'Population', "Country = 'China'")
-    print(data)
+    #data = db_manager.select_data('Population', 'Population', "Country = 'China'")
+    #print(data)
 
-    #data = db_manager.select_all_data('obesity', '*')
+    #data = db_manager.select_all_data('Obesity', '*')
     #print(data)
     
     # Cleanup obesity data and create a new table with the cleaned data
