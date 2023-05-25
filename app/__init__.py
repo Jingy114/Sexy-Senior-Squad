@@ -77,35 +77,31 @@ def handleFormSubmission(dataset):
     data_selected = dataset
     db_manager = DatabaseManager('my_database.db')
     data_by_country = db_manager.select_all_data(data_selected, '*')
-    all_data = db_manager.select_all_data(data_selected, data_selected)
+    # all_data = db_manager.select_all_data(data_selected, '*')
     # data_by_country = db_manager.select_all_data('my_table', 'country, ' + data_selected)
     # all_data = db_manager.select_all_data('my_table', data_selected)
     # data_by_country = db_manager.select_all_data(data_selected, '*')
     # print(data_by_country)
     db_manager.close()
     max = 0
-    for data in all_data:
-        value = data[0]
+    sanitized_data = []
+    for data in data_by_country:
+        value = data[1]
         if isinstance(value, str):
             try :
                 value = float(value)
-                print(value)
             except :
                 print("A value wasn't properly converted to a float")
                 continue
         elif not isinstance(value, float):
             print("A value isn't a float or string")
             continue
+        print(value, max)
         if value > max:
-            print('aaa')
             max = value
-    print(max)
-    sanitized_data = []
-    # print(data_by_country)
-    for data in data_by_country:
         original_country_name = data[0]
         country_name = original_country_name.replace(" ", "").lower()
-        sanitized_data.append((country_name, data[1]))
+        sanitized_data.append((country_name, value))
     # print(sanitized_data)
     return [True, dict(sanitized_data), max, data_selected]
 
@@ -168,7 +164,6 @@ def handleLargeFormSubmission():
         if new_value > max:
             max = new_value
         complete_sanitized_data.append((country_name, new_value))
-    print(max)
     data_selected = dataset + " " + operand + " " + dataset2
     return [True, dict(complete_sanitized_data), max, data_selected]
 
