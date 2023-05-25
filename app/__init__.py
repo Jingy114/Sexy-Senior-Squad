@@ -41,7 +41,6 @@ def register():
     else:
         return render_template('register.html')
 
-
 @app.route("/home")
 def home():
     if 'username' in session:
@@ -49,29 +48,17 @@ def home():
     else:
         return redirect('/')
 
-
 @app.route("/logout")
 def logout():
     session.pop('username', None)
     return redirect('/')
 
 # Testing route
-
-
 @app.route("/testing", methods=['GET', 'POST'])
 def testing():
     return render_template('home.html')
 
 # Loading Data Set
-
-
-@app.route("/load/<dataset>", methods=['POST'])
-def load_dataset(dataset):
-    # json_dataset = {'dataset'dataset}
-    print(request.form[""])
-    return redirect("/testing")  # , dataset=json_dataset)
-
-
 @app.route('/form-submit/<dataset>', methods=['GET', 'POST'])
 def handleFormSubmission(dataset):
     data_selected = dataset
@@ -81,13 +68,13 @@ def handleFormSubmission(dataset):
     # data_by_country = db_manager.select_all_data('my_table', 'country, ' + data_selected)
     # all_data = db_manager.select_all_data('my_table', data_selected)
     # data_by_country = db_manager.select_all_data(data_selected, '*')
-    # print(data_by_country)
+    print(data_by_country)
     db_manager.close()
     max = 0
     sanitized_data = []
     for data in data_by_country:
         value = data[1]
-        if isinstance(value, str):
+        if isinstance(value, str) and value != 'nan' :
             try :
                 value = float(value)
             except :
@@ -123,7 +110,7 @@ def handleLargeFormSubmission():
         original_country_name = data[0]
         country_name = original_country_name.replace(" ", "").lower()
         value = data[1]
-        if isinstance(value, str):
+        if isinstance(value, str) and value != 'nan':
             try :
                 value = float(value)
             except :
@@ -143,7 +130,7 @@ def handleLargeFormSubmission():
             continue
         value = dict_of_data[country_name]
         value2 = data[1]
-        if isinstance(value2, str):
+        if isinstance(value2, str) and value != 'nan':
             try :
                 value2 = float(value2)
             except :
