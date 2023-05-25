@@ -105,6 +105,7 @@ def handleFormSubmission(dataset):
 def handleLargeFormSubmission():
     dataset = request.form.get('dataset1')
     dataset2 = request.form.get('dataset2')
+    operand = request.form.get('operand')
     # operation = ???
     db_manager = DatabaseManager('my_database.db')
     data_by_country = db_manager.select_all_data(dataset, '*')
@@ -136,8 +137,15 @@ def handleLargeFormSubmission():
             value2 = float(value)
         elif not isinstance(value2, float):
             return [False]
-        new_value = value*value2
-        if new_value > max :
+        if operand == 'Added To':
+            new_value = value + value2
+        elif operand == 'Subtracted From':
+            new_value = value - value2
+        elif operand == 'Divided By':
+            new_value = value / value2
+        else:
+            new_value = value * value2
+        if new_value > max:
             max = new_value
         complete_sanitized_data.append((country_name, new_value))
     return [True, dict(complete_sanitized_data), max]

@@ -18,7 +18,7 @@ let would_be_country_true_name = "N/A";
 let country_hold = false;
 
 let operation = "Multiplied By";
-let datasets = ["population", "cleaned_obesity", "salary"];
+let datasets = ["Population", "Cleaned_obesity", "Salary"];
 let current_dataset = "";
 
 let country_values;
@@ -298,8 +298,9 @@ function process_large_data(formElement) {
 
   // var data_form = new FormData(formElement);
   var data = new URLSearchParams();
-  data.append('dataset1', dataset1);
-  data.append('dataset2', dataset2);
+  data.append('dataset1', encodeURIComponent(dataset1));
+  data.append('dataset2', encodeURIComponent(dataset2));
+  data.append('operand', encodeURIComponent(operation));
   xhttp.send(data);
   return false;
 }
