@@ -57,17 +57,35 @@ class DatabaseManager:
             headers_with_types = [header + ' TEXT' for header in headers] 
 
             self.cur.execute(f"DROP TABLE IF EXISTS {table_name}")
-            self.cur.execute(f"CREATE TABLE {table_name} (city TEXT, country TEXT, x54 REAL)")
+            self.cur.execute(f"CREATE TABLE {table_name} (city TEXT, country TEXT, salary REAL)")
 
             inserted_countries = set()  # store inserted countries
             for row in dr:
                 row = {key: value.strip() if isinstance(value, str) else value for key, value in row.items()}
                 country = row['country']
                 if country not in inserted_countries:
-                    self.cur.execute(f"INSERT INTO {table_name} VALUES (?, ?, ?)", (row['city'], row['country'], row['x54']))
+                    self.cur.execute(f"INSERT INTO {table_name} VALUES (?, ?, ?)", (row['city'], row['country'], row['salary']))
                     inserted_countries.add(country)  # add the country to the set
 
             self.conn.commit()
+            
+    def create_population_table_from_csv(self, csv_file, table_name):
+        with open(csv_file, 'r') as f:
+            dr = csv.DictReader(f)
+            headers = ['Country', 'Population']  # Only include these columns
+
+            # The rest of this method is the same as before...
+            headers_with_types = [header + ' TEXT' for header in headers]  # assuming all columns are of type TEXT
+
+            self.cur.execute(f"DROP TABLE IF EXISTS {table_name}")
+            self.cur.execute(f"CREATE TABLE {table_name} ({', '.join(headers_with_types)})")
+
+            for row in dr:
+                row = {key: value.strip() if isinstance(value, str) else value for key, value in row.items()}  # stripping leading/trailing spaces from values
+                self.cur.execute(f"INSERT INTO {table_name} VALUES (?, ?)", (row['Country'], row['Population']))
+
+        self.conn.commit()
+
 
 
 
@@ -89,8 +107,12 @@ class DatabaseManager:
 
 
     def select_all_data(self, table_name, column_name):
-        self.cur.execute(f"SELECT \"{column_name}\" FROM {table_name}")
+        if column_name == '*':
+            self.cur.execute(f"SELECT * FROM {table_name}")
+        else:
+            self.cur.execute(f"SELECT \"{column_name}\" FROM {table_name}")
         return self.cur.fetchall()
+
 
     def update_data(self, table_name, column_name, new_value, condition):
         self.cur.execute(f"UPDATE {table_name} SET \"{column_name}\" = ? WHERE {condition}", (new_value,))
@@ -161,9 +183,10 @@ if __name__ == "__main__":
     data = db_manager.select_data('my_table', 'Population', "Country = 'Indonesia'")
     print('Updated Population Density for Indonesia:', data)
     
-    db_manager.create_table_from_csv('population_by_country_2020.csv', 'population')
+    db_manager.create_population_table_from_csv('population_by_country_2020.csv', 'population')
     print(db_manager.select_data('population', '*', "Country = 'China'"))
     print(db_manager.select_data('population', 'Population', "Country = 'Indonesia'"))
+    
     
     db_manager.create_table_from_csv('obesity-cleaned.csv', 'obesity1')  
     db_manager.select_data_by_year('obesity1', 'obesity2', '2016')
@@ -177,13 +200,16 @@ if __name__ == "__main__":
         print('Obesity Percentage:', row[0])
         
     db_manager.create_country_table_from_csv('cost-of-living_v2.csv', 'salary')
-
-    # Test
-    data = db_manager.select_data('salary', '*', "country = 'South Korea'")
-    print(data)
     
-    data_selected = 'population'
-    #print(db_manager.select_all_data(data_selected, 'country, ' + data_selected))
+    #prints all data from the table
+    #data = db_manager.select_all_data('population', '*')
+    #print(data)
+    
+    data = db_manager.select_data('population', 'Population', "")
+    print(data)
+
+    
+
     
     
 

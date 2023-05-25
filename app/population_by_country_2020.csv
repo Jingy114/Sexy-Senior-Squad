@@ -1,4 +1,4 @@
-Country,Population,Yearly Change,Net Change,Density (P/Km²),Land Area (Km²),Migrants (net),Fert. Rate,Med. Age,Urban Pop %,World Share
+Country,Population,Yearly Change,Net_Change,Density,Land_Area,Migrants,Fert_Rate,Med_Age,Urban_Pop,World_Share
 China,1438207241,0.39 %,5540090,153,9388211,-348399.0,1.7,38,61 %,18.47 %
 India,1377233523,0.99 %,13586631,464,2973190,-532687.0,2.2,28,35 %,17.70 %
 United States,330610570,0.59 %,1937734,36,9147420,954806.0,1.8,38,83 %,4.25 %
