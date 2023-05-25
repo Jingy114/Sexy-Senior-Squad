@@ -205,9 +205,16 @@ HenryB 2023-5-24 21:26...
 
 FaiyazR 2023-5-23 and 2023-5-24 0:00
 --------------------------------------------------------------
-- modified various methods to account for edge cases and input disruption via sqlite commands
-- created multiple methods for betger manipulation for ease of use
-- simplified databases greatly to just contain country and the data type in sqlite table from the csv file
-- a lot of error handling and fixing issues when data is pulled to the js stuff
-- made more methods to easily extract data and change data as deemed neccessary, makes it very easy to take any csv file and take specific and manipulate it easily in tables.
-- fixed earlier bugs where special charachters in datasets and spaces were creating issues by modifying create_table_from csv methods, and its counterparts
+- modified various methods to account for edge cases and input
+disruption via sqlite commands
+- created multiple methods for betger manipulation for ease of
+use
+- simplified databases greatly to just contain country and the
+data type in sqlite table from the csv file
+- a lot of error handling and fixing issues when data is pulled 
+to the js stuff
+- made more methods to easily extract data and change data as 
+deemed neccessary, makes it very easy to take any csv file and 
+take specific and manipulate it easily in tables.
+- fixed earlier bugs where special charachters in datasets and
+spaces were creating issues by modifying create_table_from csv methods, and its counterparts
