@@ -143,7 +143,7 @@ def handleLargeFormSubmission():
         if operand == 'Added To':
             new_value = value + value2
         elif operand == 'Subtracted From':
-            new_value = value - value2
+            new_value = value2 - value
         elif operand == 'Divided By':
             new_value = value / value2
         else:
