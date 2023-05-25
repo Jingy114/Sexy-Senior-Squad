@@ -226,6 +226,12 @@ if __name__ == "__main__":
     data = db_manager.select_data('Salary', '*', "Country = 'China'")
     print(data)
     
+    data = db_manager.select_data('Salary', 'Country', "Salary = '471.75'")
+    print(data)
+    
+    #data = db_manager.select_all_data('Salary', '*')
+    #print(data)
+    
     #prints all data from the table
     #data = db_manager.select_all_data('population', '*')
     #print(data)
@@ -239,7 +245,10 @@ if __name__ == "__main__":
     # Cleanup obesity data and create a new table with the cleaned data
     cleaned_data = db_manager.cleanup_obesity_data('obesity3')
     db_manager.create_cleaned_obesity_table('Obesity', cleaned_data)
-
+    
+    db_manager.update_data('Salary', 'Country', 'United States of America', "Country = 'United States'")
+    data = db_manager.select_data('Salary', '*', "Country = 'United States of America'")
+    print(data)
     # Now you can test the cleaned table:
     #data = db_manager.select_all_data('Obesity', '*')
     #print(data)
