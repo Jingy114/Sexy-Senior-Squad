@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from db import *
 from databases import *
+from urllib.parse import unquote
 
 app = Flask(__name__)
 app.secret_key = "sss"
@@ -80,17 +81,25 @@ def handleFormSubmission(dataset):
     # data_by_country = db_manager.select_all_data('my_table', 'country, ' + data_selected)
     # all_data = db_manager.select_all_data('my_table', data_selected)
     # data_by_country = db_manager.select_all_data(data_selected, '*')
-    print(data_by_country)
+    # print(data_by_country)
     db_manager.close()
     max = 0
     for data in all_data:
         value = data[0]
         if isinstance(value, str):
-            value = float(value)
+            try :
+                value = float(value)
+                print(value)
+            except :
+                print("A value wasn't properly converted to a float")
+                continue
         elif not isinstance(value, float):
-            return [False]
+            print("A value isn't a float or string")
+            continue
         if value > max:
+            print('aaa')
             max = value
+    print(max)
     sanitized_data = []
     # print(data_by_country)
     for data in data_by_country:
@@ -103,9 +112,9 @@ def handleFormSubmission(dataset):
 
 @app.route('/large-form-submit', methods=['GET', 'POST'])
 def handleLargeFormSubmission():
-    dataset = request.form.get('dataset1')
-    dataset2 = request.form.get('dataset2')
-    operand = request.form.get('operand')
+    dataset = unquote(request.form.get('dataset1'))
+    dataset2 = unquote(request.form.get('dataset2'))
+    operand = unquote(request.form.get('operand'))
     # operation = ???
     db_manager = DatabaseManager('my_database.db')
     data_by_country = db_manager.select_all_data(dataset, '*')
@@ -119,9 +128,14 @@ def handleLargeFormSubmission():
         country_name = original_country_name.replace(" ", "").lower()
         value = data[1]
         if isinstance(value, str):
-            value = float(value)
+            try :
+                value = float(value)
+            except :
+                print("A value wasn't properly converted to a float")
+                continue
         elif not isinstance(value, float):
-            return [False]
+            print("A value isn't a float or string")
+            continue
         sanitized_data.append((country_name, value))
     dict_of_data = dict(sanitized_data)
     max = 0
@@ -130,13 +144,19 @@ def handleLargeFormSubmission():
         original_country_name = data[0]
         country_name = original_country_name.replace(" ", "").lower()
         if country_name not in dict_of_data.keys():
-            pass
+            continue
         value = dict_of_data[country_name]
         value2 = data[1]
         if isinstance(value2, str):
-            value2 = float(value)
+            try :
+                value2 = float(value2)
+            except :
+                print("A value wasn't properly converted to a float")
+                continue
         elif not isinstance(value2, float):
-            return [False]
+            print("A value isn't a float or string")
+            continue
+        # print(operand)
         if operand == 'Added To':
             new_value = value + value2
         elif operand == 'Subtracted From':
@@ -148,7 +168,9 @@ def handleLargeFormSubmission():
         if new_value > max:
             max = new_value
         complete_sanitized_data.append((country_name, new_value))
-    return [True, dict(complete_sanitized_data), max]
+    print(max)
+    data_selected = dataset + " " + operand + " " + dataset2
+    return [True, dict(complete_sanitized_data), max, data_selected]
 
 
 if __name__ == "__main__":

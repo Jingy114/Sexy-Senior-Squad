@@ -18,7 +18,7 @@ let would_be_country_true_name = "N/A";
 let country_hold = false;
 
 let operation = "Multiplied By";
-let datasets = ["Population", "Cleaned_obesity", "Salary"];
+let datasets = ["Population", "Obesity", "Salary"];
 let current_dataset = "";
 
 let country_values;
@@ -51,7 +51,7 @@ function setup(info) {
     let country_js = document.getElementById(country_name);
     country_js.addEventListener("mouseover", function() {
       would_be_country_true_name = country_name.replaceAll("_", " ");
-      console.log(would_be_country_true_name);
+      // console.log(would_be_country_true_name);
       if (country_hold == false) {
         country_true_name = would_be_country_true_name;
         //console.log(country_true_name); //Will be used for popover
@@ -108,11 +108,12 @@ function country_color(country_name, data) {
     }
     sanitized_country_name = country_name.replaceAll("_","").toLowerCase();
     value = values[sanitized_country_name];
-    console.log(value);
+    console.log(sanitized_country_name, value);
     if (typeof value == "string") {
       value = parseFloat(value);
     }
     value *= 255/max;
+    console.log(value);
     g_value = 255-value
     return "rgba("+ value +","+ g_value +",0,1)";
   } catch (error){
@@ -242,9 +243,9 @@ var save_current = function(e) {
   country_hold = true;
   //Show data
   try {
-    console.log(country_values);
+    // console.log(country_values);
     sanitized_country_name = country_name.replaceAll("_","").toLowerCase();
-    console.log(sanitized_country_name);
+    // console.log(sanitized_country_name);
     data_to_be_displayed = country_values[sanitized_country_name];
     if (data_to_be_displayed == undefined) {
       data_display.innerHTML = "No Data Available For " + current_dataset;
